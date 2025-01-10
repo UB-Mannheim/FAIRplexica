@@ -1,3 +1,4 @@
+import { getGlobalContext } from '../config';
 import { ChatOpenAI } from '@langchain/openai';
 import type { BaseChatModel } from '@langchain/core/language_models/chat_models';
 import type { Embeddings } from '@langchain/core/embeddings';
@@ -36,6 +37,8 @@ export interface MetaSearchAgentType {
     fileIds: string[],
   ) => Promise<eventEmitter>;
 }
+
+const GlobalContext = getGlobalContext();
 
 interface Config {
   searchWeb: boolean;
@@ -203,7 +206,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
 
           return { query: question, docs: docs };
         } else {
-          const res = await searchSearxng(question, {
+          const res = await searchSearxng(`${question} ${GlobalContext}`, {
             language: 'en',
             engines: this.config.activeEngines,
           });

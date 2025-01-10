@@ -8,6 +8,7 @@ interface Config {
   GENERAL: {
     PORT: number;
     SIMILARITY_MEASURE: string;
+    GLOBAL_CONTEXT: string;
     KEEP_ALIVE: string;
   };
   API_KEYS: {
@@ -35,6 +36,8 @@ export const getPort = () => loadConfig().GENERAL.PORT;
 
 export const getSimilarityMeasure = () =>
   loadConfig().GENERAL.SIMILARITY_MEASURE;
+
+export const getGlobalContext = () => loadConfig().GENERAL.GLOBAL_CONTEXT;
 
 export const getKeepAlive = () => loadConfig().GENERAL.KEEP_ALIVE;
 

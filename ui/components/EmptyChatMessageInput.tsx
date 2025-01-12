@@ -7,29 +7,34 @@ import Optimization from './MessageInputActions/Optimization';
 import Attach from './MessageInputActions/Attach';
 import { File } from './ChatWindow';
 
-const EmptyChatMessageInput = ({
-  sendMessage,
-  focusMode,
-  setFocusMode,
-  optimizationMode,
-  setOptimizationMode,
-  fileIds,
-  setFileIds,
-  files,
-  setFiles,
-}: {
+// Check for ExpertMode to show/hide  UI elements
+const isExpertMode = process.env.NEXT_PUBLIC_EXPERT_MODE === 'true';
+
+type EmptyChatMessageProps = {
   sendMessage: (message: string) => void;
-  focusMode: string;
-  setFocusMode: (mode: string) => void;
-  optimizationMode: string;
-  setOptimizationMode: (mode: string) => void;
+  focusMode?: string;
+  setFocusMode?: (mode: string) => void;
+  optimizationMode?: string;
+  setOptimizationMode?: (mode: string) => void;
   fileIds: string[];
   setFileIds: (fileIds: string[]) => void;
   files: File[];
   setFiles: (files: File[]) => void;
-}) => {
-  const [copilotEnabled, setCopilotEnabled] = useState(false);
-  const [message, setMessage] = useState('');
+};
+
+const EmptyChatMessageInput = ({
+    sendMessage,
+    focusMode = 'webSearch', 
+    setFocusMode = () => {}, 
+    optimizationMode = 'balanced',
+    setOptimizationMode = () => {},
+    fileIds,
+    setFileIds,
+    files,
+    setFiles,
+  }: EmptyChatMessageProps) => {
+    const [copilotEnabled, setCopilotEnabled] = useState(false);
+    const [message, setMessage] = useState('');  
 
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -82,26 +87,38 @@ const EmptyChatMessageInput = ({
           className="bg-transparent placeholder:text-black/50 dark:placeholder:text-white/50 text-sm text-black dark:text-white resize-none focus:outline-none w-full max-h-24 lg:max-h-36 xl:max-h-48"
           placeholder="Ask anything..."
         />
+
+        {/* ExpertTools */}
+        {/* Focus and attached Files */}
         <div className="flex flex-row items-center justify-between mt-4">
-          <div className="flex flex-row items-center space-x-2 lg:space-x-4">
-            <Focus focusMode={focusMode} setFocusMode={setFocusMode} />
-            <Attach
-              fileIds={fileIds}
-              setFileIds={setFileIds}
-              files={files}
-              setFiles={setFiles}
-              showText
-            />
-          </div>
+          {isExpertMode && (
+              <div className="flex flex-row items-center space-x-2 lg:space-x-4">
+                <Focus 
+                  focusMode={focusMode || 'default'} 
+                  setFocusMode={setFocusMode}  
+                />
+                <Attach
+                  fileIds={fileIds}
+                  setFileIds={setFileIds}
+                  files={files}
+                  setFiles={setFiles}
+                  showText
+                />
+              </div>
+            )}
+
+          {/* Optimization Mode */}
           <div className="flex flex-row items-center space-x-1 sm:space-x-4">
-            <Optimization
-              optimizationMode={optimizationMode}
-              setOptimizationMode={setOptimizationMode}
-            />
+            {isExpertMode && (
+                <Optimization
+                  optimizationMode={optimizationMode}
+                  setOptimizationMode={setOptimizationMode}
+                />
+            )}
             <button
               disabled={message.trim().length === 0}
               className="bg-[#24A0ED] text-white disabled:text-black/50 dark:disabled:text-white/50 disabled:bg-[#e0e0dc] dark:disabled:bg-[#ececec21] hover:bg-opacity-85 transition duration-100 rounded-full p-2"
-            >
+              >
               <ArrowRight className="bg-background" size={17} />
             </button>
           </div>

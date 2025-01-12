@@ -8,6 +8,9 @@ import React, { useState, type ReactNode } from 'react';
 import Layout from './Layout';
 import SettingsDialog from './SettingsDialog';
 
+// Check for ExpertMode to show/hide  UI elements
+const isExpertMode = process.env.NEXT_PUBLIC_EXPERT_MODE === 'true';
+
 const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex flex-col items-center gap-y-3 w-full">{children}</div>
@@ -26,12 +29,16 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
       active: segments.length === 0 || segments.includes('c'),
       label: 'Home',
     },
-    {
-      icon: Search,
-      href: '/discover',
-      active: segments.includes('discover'),
-      label: 'Discover',
-    },
+    ...(isExpertMode
+      ? [
+          {
+            icon: Search,
+            href: '/discover',
+            active: segments.includes('discover'),
+            label: 'Discover',
+          },
+        ]
+      : []),
     {
       icon: BookOpenText,
       href: '/library',
@@ -67,15 +74,18 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
             ))}
           </VerticalIconContainer>
 
-          <Settings
-            onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-            className="cursor-pointer"
-          />
-
-          <SettingsDialog
-            isOpen={isSettingsOpen}
-            setIsOpen={setIsSettingsOpen}
-          />
+          {isExpertMode && (
+            <>
+              <Settings
+                onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                className="cursor-pointer"
+              />
+              <SettingsDialog
+                isOpen={isSettingsOpen}
+                setIsOpen={setIsSettingsOpen}
+              />
+            </>
+          )}
         </div>
       </div>
 

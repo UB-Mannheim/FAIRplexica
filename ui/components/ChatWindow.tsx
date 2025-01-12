@@ -27,6 +27,9 @@ export interface File {
   fileId: string;
 }
 
+// Check for ExpertMode to show/hide  UI elements
+const isExpertMode = process.env.NEXT_PUBLIC_EXPERT_MODE === 'true';
+
 const useSocket = (
   url: string,
   setIsWSReady: (ready: boolean) => void,
@@ -631,6 +634,7 @@ const ChatWindow = ({ id }: { id?: string }) => {
     );
   }
 
+
   return isReady ? (
     notFound ? (
       <NextError statusCode={404} />
@@ -654,15 +658,17 @@ const ChatWindow = ({ id }: { id?: string }) => {
         ) : (
           <EmptyChat
             sendMessage={sendMessage}
-            focusMode={focusMode}
-            setFocusMode={setFocusMode}
-            optimizationMode={optimizationMode}
-            setOptimizationMode={setOptimizationMode}
             fileIds={fileIds}
             setFileIds={setFileIds}
             files={files}
             setFiles={setFiles}
-          />
+            {...(isExpertMode && {
+              focusMode,
+              setFocusMode,
+              optimizationMode,
+              setOptimizationMode,
+            })}
+          />  
         )}
       </div>
     )

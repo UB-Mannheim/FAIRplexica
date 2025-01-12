@@ -67,6 +67,33 @@ interface SettingsType {
   ollamaApiUrl: string;
 }
 
+// Reusable component for API Key Inputs
+interface ApiKeyInputProps {
+  label: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  showApiKeys: boolean;
+}
+
+const ApiKeyInput: React.FC<ApiKeyInputProps> = ({
+  label,
+  value,
+  onChange,
+  showApiKeys,
+}) => {
+  return (
+    <div className="flex flex-col space-y-1">
+      <p className="text-black/70 dark:text-white/70 text-sm">{label}</p>
+      <Input
+        type={showApiKeys ? 'text' : 'password'}
+        placeholder={label}
+        value={value}
+        onChange={onChange}
+      />
+    </div>
+  );
+};
+
 const SettingsDialog = ({
   isOpen,
   setIsOpen,
@@ -94,6 +121,9 @@ const SettingsDialog = ({
   const [customOpenAIBaseURL, setCustomOpenAIBaseURL] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  
+ // Toggle visibility of all API keys
+ const [showAllApiKeys, setShowAllApiKeys] = useState<boolean>(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -190,6 +220,11 @@ const SettingsDialog = ({
     }
   };
 
+  // Function to toggle visibility of all API keys
+  const toggleAllApiKeysVisibility = () => {
+    setShowAllApiKeys((prev) => !prev);
+  };
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
@@ -220,9 +255,26 @@ const SettingsDialog = ({
               leaveTo="opacity-0 scale-95"
             >
               <DialogPanel className="w-full max-w-md transform rounded-2xl bg-light-secondary dark:bg-dark-secondary border border-light-200 dark:border-dark-200 p-6 text-left align-middle shadow-xl transition-all">
-                <DialogTitle className="text-xl font-medium leading-6 dark:text-white">
-                  Settings
-                </DialogTitle>
+                {/* Header with Settings Title and Toggle Button */}
+                <div className="flex justify-between items-center">
+                  <DialogTitle
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
+                  >
+                    Settings
+                  </DialogTitle>
+                  <button
+                    type="button"
+                    onClick={toggleAllApiKeysVisibility}
+                    className="text-sm text-blue-500 dark:text-blue-400 hover:underline focus:outline-none"
+                    aria-label={
+                      showAllApiKeys ? 'Hide All API Keys' : 'Show All API Keys'
+                    }
+                  >
+                    {showAllApiKeys ? 'Hide API Keys' : 'Show API Keys'}
+                  </button>
+                </div>
+                
                 {config && !isLoading && (
                   <div className="flex flex-col space-y-4 mt-6">
                     <div className="flex flex-col space-y-1">
@@ -234,7 +286,7 @@ const SettingsDialog = ({
                     {config.chatModelProviders && (
                       <div className="flex flex-col space-y-1">
                         <p className="text-black/70 dark:text-white/70 text-sm">
-                          Chat model Provider
+                          Chat Model Provider
                         </p>
                         <Select
                           value={selectedChatModelProvider ?? undefined}
@@ -319,17 +371,15 @@ const SettingsDialog = ({
                             />
                           </div>
                           <div className="flex flex-col space-y-1">
-                            <p className="text-black/70 dark:text-white/70 text-sm">
-                              Custom OpenAI API Key
-                            </p>
-                            <Input
-                              type="text"
-                              placeholder="Custom OpenAI API Key"
-                              defaultValue={customOpenAIApiKey!}
-                              onChange={(e) =>
-                                setCustomOpenAIApiKey(e.target.value)
-                              }
-                            />
+                            {/* API Key Input */}
+                            {selectedChatModelProvider === 'custom_openai' && (
+                              <ApiKeyInput
+                                label="Custom OpenAI API Key"
+                                value={customOpenAIApiKey}
+                                onChange={(e) => setCustomOpenAIApiKey(e.target.value)}
+                                showApiKeys={showAllApiKeys}
+                              />
+                            )}
                           </div>
                           <div className="flex flex-col space-y-1">
                             <p className="text-black/70 dark:text-white/70 text-sm">
@@ -413,22 +463,56 @@ const SettingsDialog = ({
                         />
                       </div>
                     )}
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-black/70 dark:text-white/70 text-sm">
-                        OpenAI API Key
-                      </p>
-                      <Input
-                        type="text"
-                        placeholder="OpenAI API Key"
-                        defaultValue={config.openaiApiKey}
-                        onChange={(e) =>
-                          setConfig({
-                            ...config,
-                            openaiApiKey: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
+
+                    {/* API Key Inputs */}
+                    <ApiKeyInput
+                      label="OpenAI API Key"
+                      value={config?.openaiApiKey || ''}
+                      onChange={(e) =>
+                        setConfig({
+                          ...config!,
+                          openaiApiKey: e.target.value,
+                        })
+                      }
+                      showApiKeys={showAllApiKeys}
+                    />
+
+                    <ApiKeyInput
+                      label="Groq API Key"
+                      value={config?.groqApiKey || ''}
+                      onChange={(e) =>
+                        setConfig({
+                          ...config!,
+                          groqApiKey: e.target.value,
+                        })
+                      }
+                      showApiKeys={showAllApiKeys}
+                    />
+
+                    <ApiKeyInput
+                      label="Anthropic API Key"
+                      value={config?.anthropicApiKey || ''}
+                      onChange={(e) =>
+                        setConfig({
+                          ...config!,
+                          anthropicApiKey: e.target.value,
+                        })
+                      }
+                      showApiKeys={showAllApiKeys}
+                    />
+
+                    <ApiKeyInput
+                      label="Gemini API Key"
+                      value={config?.geminiApiKey || ''}
+                      onChange={(e) =>
+                        setConfig({
+                          ...config!,
+                          geminiApiKey: e.target.value,
+                        })
+                      }
+                      showApiKeys={showAllApiKeys}
+                    />  
+
                     <div className="flex flex-col space-y-1">
                       <p className="text-black/70 dark:text-white/70 text-sm">
                         Ollama API URL
@@ -441,54 +525,6 @@ const SettingsDialog = ({
                           setConfig({
                             ...config,
                             ollamaApiUrl: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-black/70 dark:text-white/70 text-sm">
-                        GROQ API Key
-                      </p>
-                      <Input
-                        type="text"
-                        placeholder="GROQ API Key"
-                        defaultValue={config.groqApiKey}
-                        onChange={(e) =>
-                          setConfig({
-                            ...config,
-                            groqApiKey: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-black/70 dark:text-white/70 text-sm">
-                        Anthropic API Key
-                      </p>
-                      <Input
-                        type="text"
-                        placeholder="Anthropic API key"
-                        defaultValue={config.anthropicApiKey}
-                        onChange={(e) =>
-                          setConfig({
-                            ...config,
-                            anthropicApiKey: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-black/70 dark:text-white/70 text-sm">
-                        Gemini API Key
-                      </p>
-                      <Input
-                        type="text"
-                        placeholder="Gemini API key"
-                        defaultValue={config.geminiApiKey}
-                        onChange={(e) =>
-                          setConfig({
-                            ...config,
-                            geminiApiKey: e.target.value,
                           })
                         }
                       />

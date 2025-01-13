@@ -5,11 +5,10 @@ import { Info } from 'lucide-react';
 const AboutPage = () => {
   return (
     <div>
-      {/* Page Header (mirroring the Library page’s structure) */}
       <div className="flex flex-col pt-4">
         <div className="flex items-center">
           <Info />
-          <h1 className="text-3xl font-medium p-2">About</h1>
+          <h1 className="text-3xl font-medium p-2">About FAIRplexica</h1>
         </div>
         <hr className="border-t border-[#2B2C2C] my-4 w-full" />
       </div>
@@ -17,16 +16,14 @@ const AboutPage = () => {
       {/* Main Content */}
       <main className="px-4 lg:px-8 py-4 lg:py-8">
 
-        <div className="flex justify-center gap-8 mb-6">
+        <div className="flex justify-center gap-12 mb-10 h-24">
           <img
             src="/UB_logo.png"
             alt="University Library Mannheim Logo"
-            className="h-24"
           />
           <img
             src="/FDZ_logo.png"
             alt="Research Data Center Mannheim Logo"
-            className="h-24"
           />
         </div>
 

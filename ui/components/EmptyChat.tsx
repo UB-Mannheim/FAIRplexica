@@ -124,7 +124,7 @@ const EmptyChat = ({
             <button
               key={question}
               onClick={() => sendMessage(question)}
-              className="text-left text-black/70 dark:text-white/70 text-base font-normal p-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ml-2"
+              className="text-left text-black/70 dark:text-white/70 text-base font-normal p-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ml-2 shadow-sm"
             >
               {question}
             </button>

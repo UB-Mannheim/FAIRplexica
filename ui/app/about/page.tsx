@@ -16,24 +16,55 @@ const AboutPage = () => {
 
       {/* Main Content */}
       <main className="px-4 lg:px-8 py-4 lg:py-8">
+
+        <div className="flex justify-center gap-8 mb-6">
+          <img
+            src="/UB_logo.png"
+            alt="University Library Mannheim Logo"
+            className="h-24"
+          />
+          <img
+            src="/FDZ_logo.png"
+            alt="Research Data Center Mannheim Logo"
+            className="h-24"
+          />
+        </div>
+
         <p className="text-black/70 dark:text-white/70 text-lg md:text-lg">
-          FAIRplexica is an academic search engine designed to answer questions about{' '}
-          <b>research data management (RDM)</b>.<br /><br />
-          It is provided and maintained by{' '}
+          FAIRplexica is an open source academic search engine designed to answer questions about{' '}
+          <b>research data management (RDM)</b>.
+          It performs guided web searches over relevant RDM resources using the metasearch engine{' '}
+          <a
+            href="https://github.com/searxng/searxng"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-black dark:text-white lg:text-lg font-medium truncate transition duration-200 hover:text-[#ADB8C8] dark:hover:text-[#ADB8C8] cursor-pointer"
+          >
+            SearXNG
+          </a>. The collected search result are then processed by a local LLM using{' '}
+          <a
+            href="https://github.com/ollama/ollama"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-black dark:text-white lg:text-lg font-medium truncate transition duration-200 hover:text-[#ADB8C8] dark:hover:text-[#ADB8C8] cursor-pointer"
+          >
+            Ollama
+          </a>.<br /><br />
+          FAIRplexica is provided and maintained by{' '}
           <a
             href="https://www.bib.uni-mannheim.de/en/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-black dark:text-white lg:text-lg font-medium truncate transition duration-200 hover:text-[#24A0ED] dark:hover:text-[#24A0ED] cursor-pointer"
+            className="text-black dark:text-white lg:text-lg font-medium truncate transition duration-200 hover:text-[#ADB8C8] dark:hover:text-[#ADB8C8] cursor-pointer"
           >
             University Library Mannheim
           </a>{' '}
-          and is based on{' '}
+          and based on{' '}
           <a
             href="https://github.com/ItzCrazyKns/Perplexica"
             target='_blank'
             rel="noopener noreferrer"
-            className="text-black dark:text-white lg:text-lg font-medium truncate transition duration-200 hover:text-[#24A0ED] dark:hover:text-[#24A0ED] cursor-pointer"
+            className="text-black dark:text-white lg:text-lg font-medium truncate transition duration-200 hover:text-[#ADB8C8] dark:hover:text-[#ADB8C8] cursor-pointer"
           >
             Perplexica
           </a>.

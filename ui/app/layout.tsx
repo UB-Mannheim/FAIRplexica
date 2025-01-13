@@ -14,9 +14,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: 'Perplexica - Chat with the internet',
+  title: 'FAIRplexica',
   description:
-    'Perplexica is an AI powered chatbot that is connected to the internet.',
+    'Search for RDM topics.',
 };
 
 export default function RootLayout({

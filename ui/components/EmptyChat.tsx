@@ -1,4 +1,4 @@
-import { Settings } from 'lucide-react';
+import { Settings, Info } from 'lucide-react';
 import EmptyChatMessageInput from './EmptyChatMessageInput';
 import SettingsDialog from './SettingsDialog';
 import { useState, useEffect } from 'react';
@@ -130,8 +130,14 @@ const EmptyChat = ({
             </button>
           ))}
         </div>
-        
+
       </div>
+
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-500 flex items-center space-x-2">
+        <Info className="w-4 h-4" />
+        <span>LLMs make mistakes. Check information and resources carefully.</span>
+      </div>
+
     </div>
   );
 };

@@ -41,12 +41,12 @@ const predefinedQuestions = [
   "How much anonymization for my data is enough?",
   "How much documentation is needed for my data set?",
   "What are the advantages of sharing data through a data infrastructure?",
-  "How to handle data breaches?",
+  "How can I handle data breaches?",
   "What is data versioning?",
-  "How to backup research data?",
+  "How should I backup my research data?",
   "What is data anonymization?",
   "What are data licensing options?",
-  "How to secure sensitive data?"
+  "How should I secure sensitive research data?"
 ];
 
 type EmptyChatProps = {

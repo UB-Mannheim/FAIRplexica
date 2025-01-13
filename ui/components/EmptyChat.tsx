@@ -4,8 +4,8 @@ import SettingsDialog from './SettingsDialog';
 import { useState, useEffect } from 'react';
 import { File } from './ChatWindow';
 
-// Check for ExpertMode to show/hide  UI elements
-const isExpertMode = process.env.NEXT_PUBLIC_EXPERT_MODE === 'true';
+// Check for admin mode to show/hide  UI elements
+const isAdminMode = process.env.NEXT_PUBLIC_ADMIN_MODE === 'true';
 
 const predefinedQuestions = [
   "What is RDM?",
@@ -84,26 +84,33 @@ const EmptyChat = ({
 
   return (
     <div className="relative">
-      <SettingsDialog isOpen={isSettingsOpen} setIsOpen={setIsSettingsOpen} />
-      <div className="absolute w-full flex flex-row items-center justify-end mr-5 mt-5">
-        <Settings
-          className="cursor-pointer lg:hidden"
-          onClick={() => setIsSettingsOpen(true)}
-        />
-      </div>
+
+      {/* Settings */}
+      {isAdminMode && (
+        <>
+          <SettingsDialog isOpen={isSettingsOpen} setIsOpen={setIsSettingsOpen} />
+          <div className="absolute w-full flex flex-row items-center justify-end mr-5 mt-5">
+            <Settings
+              className="cursor-pointer lg:hidden"
+              onClick={() => setIsSettingsOpen(true)}
+            />
+          </div>
+        </>
+      )}
+
       <div className="flex flex-col items-center justify-center min-h-screen max-w-screen-sm mx-auto p-2 space-y-8">
         <h2 className="text-black/70 dark:text-white/70 text-3xl font-medium -mt-8">
           🌱 FAIRplexica: Search For RDM Topics
         </h2>
 
-        {/* User input */}
+        {/* User chat input */}
         <EmptyChatMessageInput
           sendMessage={sendMessage}
           fileIds={fileIds}
           setFileIds={setFileIds}
           files={files}
           setFiles={setFiles}
-          {...(isExpertMode && {
+          {...(isAdminMode && {
             focusMode,
             setFocusMode,
             optimizationMode,
@@ -123,6 +130,7 @@ const EmptyChat = ({
             </button>
           ))}
         </div>
+        
       </div>
     </div>
   );

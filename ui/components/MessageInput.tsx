@@ -7,8 +7,8 @@ import CopilotToggle from './MessageInputActions/Copilot';
 import { File } from './ChatWindow';
 import AttachSmall from './MessageInputActions/AttachSmall';
 
-// Check for ExpertMode to show/hide  UI elements
-const isExpertMode = process.env.NEXT_PUBLIC_EXPERT_MODE === 'true';
+// Check for admin mode to show/hide  UI elements
+const isAdminMode = process.env.NEXT_PUBLIC_ADMIN_MODE === 'true';
 
 const MessageInput = ({
   sendMessage,
@@ -82,7 +82,7 @@ const MessageInput = ({
         mode === 'multi' ? 'flex-col rounded-lg' : 'flex-row rounded-full',
       )}
     >
-      {mode === 'single' && isExpertMode && (
+      {mode === 'single' && isAdminMode && (
         <AttachSmall
           fileIds={fileIds}
           setFileIds={setFileIds}
@@ -100,7 +100,7 @@ const MessageInput = ({
         className="transition bg-transparent dark:placeholder:text-white/50 placeholder:text-sm text-sm dark:text-white resize-none focus:outline-none w-full px-2 max-h-24 lg:max-h-36 xl:max-h-48 flex-grow flex-shrink"
         placeholder="Ask a follow-up"
       />
-      {mode === 'single' && isExpertMode && (
+      {mode === 'single' && isAdminMode && (
         <div className="flex flex-row items-center space-x-4">
           <CopilotToggle
             copilotEnabled={copilotEnabled}
@@ -114,7 +114,7 @@ const MessageInput = ({
           </button>
         </div>
       )}
-      {mode === 'multi' && isExpertMode && (
+      {mode === 'multi' && isAdminMode && (
         <div className="flex flex-row items-center justify-between w-full pt-2">
           <AttachSmall
             fileIds={fileIds}

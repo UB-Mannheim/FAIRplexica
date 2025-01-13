@@ -67,7 +67,7 @@ interface SettingsType {
   ollamaApiUrl: string;
 }
 
-// Reusable component for API Key Inputs
+// API key probs
 interface ApiKeyInputProps {
   label: string;
   value: string;
@@ -263,6 +263,8 @@ const SettingsDialog = ({
                   >
                     Settings
                   </DialogTitle>
+
+                  {/* Text button to toggle API key visibility */}
                   <button
                     type="button"
                     onClick={toggleAllApiKeysVisibility}
@@ -273,6 +275,7 @@ const SettingsDialog = ({
                   >
                     {showAllApiKeys ? 'Hide API Keys' : 'Show API Keys'}
                   </button>
+
                 </div>
                 
                 {config && !isLoading && (

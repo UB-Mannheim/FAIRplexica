@@ -7,8 +7,8 @@ import Optimization from './MessageInputActions/Optimization';
 import Attach from './MessageInputActions/Attach';
 import { File } from './ChatWindow';
 
-// Check for ExpertMode to show/hide  UI elements
-const isExpertMode = process.env.NEXT_PUBLIC_EXPERT_MODE === 'true';
+// Check for admin mode to show/hide  UI elements
+const isAdminMode = process.env.NEXT_PUBLIC_ADMIN_MODE === 'true';
 
 type EmptyChatMessageProps = {
   sendMessage: (message: string) => void;
@@ -91,7 +91,7 @@ const EmptyChatMessageInput = ({
         {/* ExpertTools */}
         {/* Focus and attached Files */}
         <div className="flex flex-row items-center justify-between mt-4">
-          {isExpertMode && (
+          {isAdminMode && (
               <div className="flex flex-row items-center space-x-2 lg:space-x-4">
                 <Focus 
                   focusMode={focusMode || 'default'} 
@@ -109,7 +109,7 @@ const EmptyChatMessageInput = ({
 
           {/* Optimization Mode */}
           <div className="flex flex-row items-center space-x-1 sm:space-x-4">
-            {isExpertMode && (
+            {isAdminMode && (
                 <Optimization
                   optimizationMode={optimizationMode}
                   setOptimizationMode={setOptimizationMode}

@@ -27,8 +27,8 @@ export interface File {
   fileId: string;
 }
 
-// Check for ExpertMode to show/hide  UI elements
-const isExpertMode = process.env.NEXT_PUBLIC_EXPERT_MODE === 'true';
+// Check for admin mode to show/hide  UI elements
+const isAdminMode = process.env.NEXT_PUBLIC_ADMIN_MODE === 'true';
 
 const useSocket = (
   url: string,
@@ -634,7 +634,6 @@ const ChatWindow = ({ id }: { id?: string }) => {
     );
   }
 
-
   return isReady ? (
     notFound ? (
       <NextError statusCode={404} />
@@ -662,7 +661,7 @@ const ChatWindow = ({ id }: { id?: string }) => {
             setFileIds={setFileIds}
             files={files}
             setFiles={setFiles}
-            {...(isExpertMode && {
+            {...(isAdminMode && {
               focusMode,
               setFocusMode,
               optimizationMode,

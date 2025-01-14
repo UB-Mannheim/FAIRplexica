@@ -100,7 +100,7 @@ const EmptyChat = ({
 
       <div className="flex flex-col items-center justify-center min-h-screen max-w-screen-sm mx-auto p-2 space-y-8">
         <h2 className="text-black/70 dark:text-white/70 text-3xl font-medium -mt-8">
-          🌱 FAIRplexica: Search For RDM Topics
+          🌱 FAIRplexica: Search for RDM topics
         </h2>
 
         {/* User chat input */}
@@ -135,7 +135,7 @@ const EmptyChat = ({
 
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-500 flex items-center space-x-2">
         <Info className="w-4 h-4" />
-        <span>LLMs make mistakes. Check information and resources carefully.</span>
+        <span>LLMs make mistakes. Check information and cited sources carefully.</span>
       </div>
 
     </div>

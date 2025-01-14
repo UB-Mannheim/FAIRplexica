@@ -100,18 +100,23 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
               }
             })}
 
-            {/* Settings Menu */}
+            {/* Settings Button */}
             {isAdminMode && (
-              <>
-                <Settings
-                  onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                  className="cursor-pointer"
-                />
-                <SettingsDialog
-                  isOpen={isSettingsOpen}
-                  setIsOpen={setIsSettingsOpen}
-                />
-              </>
+              <button
+                onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                className={cn(
+                  'relative flex items-center justify-center cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 duration-150 transition w-full py-2 rounded-lg',
+                  isSettingsOpen
+                    ? 'text-white dark:text-white'
+                    : 'text-white/70 dark:text-white/70'
+                )}
+                aria-label="Settings"
+              >
+                <Settings className="w-6 h-6" />
+                {isSettingsOpen && (
+                  <div className="absolute right-0 -mr-2 h-full w-1 rounded-l-lg bg-white dark:bg-white" />
+                )}
+              </button>
             )}
             
           </VerticalIconContainer>
@@ -141,6 +146,15 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <Layout>{children}</Layout>
+
+      {/* Settings Dialog */}
+      {isAdminMode && (
+        <SettingsDialog
+          isOpen={isSettingsOpen}
+          setIsOpen={setIsSettingsOpen}
+        />
+      )}
+
     </div>
   );
 };

@@ -116,7 +116,7 @@ const EmptyChatMessageInput = ({
             )}
             <button
               disabled={message.trim().length === 0}
-              className="bg-light-200 text-white disabled:text-black/50 dark:disabled:text-white/50 disabled:bg-light-100 dark:disabled:bg-[#ececec21] hover:bg-opacity-85 transition duration-100 rounded-full p-2"
+              className="bg-light-200 text-white disabled:text-black/50 dark:disabled:text-white/50 disabled:bg-light-100 dark:disabled:bg-[#ececec21] hover:bg-opacity-85 transition duration-100 rounded-full p-4 mb-2"
               >
               <Search className="bg-background" size={17} />
             </button>

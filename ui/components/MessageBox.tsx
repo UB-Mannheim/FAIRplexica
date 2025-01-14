@@ -167,12 +167,12 @@ const MessageBox = ({
                               }}
                               className="cursor-pointer flex flex-row justify-between font-medium space-x-2 items-center"
                             >
-                              <p className="transition duration-200 hover:text-[#24A0ED]">
+                              <p className="transition duration-100 hover:text-[#ADB8C8]">
                                 {suggestion}
                               </p>
                               <Plus
                                 size={20}
-                                className="text-[#24A0ED] flex-shrink-0"
+                                className="text-light-200 flex-shrink-0 hover:text-[#ADB8C8]"
                               />
                             </div>
                           </div>

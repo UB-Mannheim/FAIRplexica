@@ -22,7 +22,7 @@ const Input = ({ className, ...restProps }: InputProps) => {
     <input
       {...restProps}
       className={cn(
-        'bg-light-secondary dark:bg-dark-secondary px-3 py-2 flex items-center overflow-hidden border border-light-200 dark:border-dark-200 dark:text-white rounded-lg text-sm',
+        'bg-light-50 dark:bg-dark-secondary px-3 py-2 flex items-center overflow-hidden border border-light-100 dark:border-dark-200 dark:text-white rounded-lg text-sm',
         className,
       )}
     />
@@ -38,7 +38,7 @@ export const Select = ({ className, options, ...restProps }: SelectProps) => {
     <select
       {...restProps}
       className={cn(
-        'bg-light-secondary dark:bg-dark-secondary px-3 py-2 flex items-center overflow-hidden border border-light-200 dark:border-dark-200 dark:text-white rounded-lg text-sm',
+        'bg-light-50 dark:bg-dark-secondary px-3 py-2 flex items-center overflow-hidden border border-light-100 dark:border-dark-200 dark:text-white rounded-lg text-sm',
         className,
       )}
     >
@@ -254,7 +254,7 @@ const SettingsDialog = ({
               leaveFrom="opacity-100 scale-200"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="w-full max-w-md transform rounded-2xl bg-light-secondary dark:bg-dark-secondary border border-light-200 dark:border-dark-200 p-6 text-left align-middle shadow-xl transition-all">
+              <DialogPanel className="w-full max-w-md transform rounded-2xl bg-light-50 dark:bg-dark-secondary border border-light-100 dark:border-dark-200 p-6 text-left align-middle shadow-xl transition-all">
                 {/* Header with Settings Title and Toggle Button */}
                 <div className="flex justify-between items-center">
                   <DialogTitle
@@ -268,7 +268,7 @@ const SettingsDialog = ({
                   <button
                     type="button"
                     onClick={toggleAllApiKeysVisibility}
-                    className="text-sm text-blue-500 dark:text-blue-400 hover:underline focus:outline-none"
+                    className="text-sm text-black dark:text-white hover:text-[#ADB8C8] focus:outline-none"
                     aria-label={
                       showAllApiKeys ? 'Hide All API Keys' : 'Show All API Keys'
                     }

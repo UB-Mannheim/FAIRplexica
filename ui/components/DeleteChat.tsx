@@ -11,6 +11,7 @@ import {
 import { Fragment, useState } from 'react';
 import { toast } from 'sonner';
 import { Chat } from '@/app/library/page';
+import useAppConfig from '@/hooks/useAppConfig';
 
 const DeleteChat = ({
   chatId,
@@ -25,12 +26,13 @@ const DeleteChat = ({
 }) => {
   const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { NEXT_PUBLIC_API_URL } = useAppConfig();
 
   const handleDelete = async () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/chats/${chatId}`,
+        `${NEXT_PUBLIC_API_URL}/chats/${chatId}`,
         {
           method: 'DELETE',
           headers: {

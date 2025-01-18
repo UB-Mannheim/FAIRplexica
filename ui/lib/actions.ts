@@ -1,4 +1,5 @@
 import { Message } from '@/components/ChatWindow';
+import { getAppConfig } from '@/hooks/useAppConfig';
 
 export const getSuggestions = async (chatHisory: Message[]) => {
   const chatModel = localStorage.getItem('chatModel');
@@ -7,7 +8,9 @@ export const getSuggestions = async (chatHisory: Message[]) => {
   const customOpenAIKey = localStorage.getItem('openAIApiKey');
   const customOpenAIBaseURL = localStorage.getItem('openAIBaseURL');
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/suggestions`, {
+  const { NEXT_PUBLIC_API_URL } = getAppConfig() || {};
+
+  const res = await fetch(`${NEXT_PUBLIC_API_URL}/suggestions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

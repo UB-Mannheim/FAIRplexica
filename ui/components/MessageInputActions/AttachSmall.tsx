@@ -8,6 +8,7 @@ import {
 import { CopyPlus, File, LoaderCircle, Plus, Trash } from 'lucide-react';
 import { Fragment, useRef, useState } from 'react';
 import { File as FileType } from '../ChatWindow';
+import { getAppConfig } from '@/hooks/useAppConfig';
 
 const AttachSmall = ({
   fileIds,
@@ -22,6 +23,7 @@ const AttachSmall = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<any>();
+  const { NEXT_PUBLIC_API_URL } = getAppConfig() || {};
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoading(true);
@@ -39,7 +41,7 @@ const AttachSmall = ({
     data.append('embedding_model_provider', embeddingModelProvider!);
     data.append('embedding_model', embeddingModel!);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/uploads`, {
+    const res = await fetch(`${NEXT_PUBLIC_API_URL}/uploads`, {
       method: 'POST',
       body: data,
     });
@@ -120,8 +122,8 @@ const AttachSmall = ({
                   <p className="text-white/70 text-sm">
                     {file.fileName.length > 25
                       ? file.fileName.replace(/\.\w+$/, '').substring(0, 25) +
-                        '...' +
-                        file.fileExtension
+                      '...' +
+                      file.fileExtension
                       : file.fileName}
                   </p>
                 </div>

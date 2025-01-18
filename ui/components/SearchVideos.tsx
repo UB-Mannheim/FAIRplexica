@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import Lightbox, { GenericSlide, VideoSlide } from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import { Message } from './ChatWindow';
+import useAppConfig from '@/hooks/useAppConfig';
 
 type Video = {
   url: string;
@@ -37,6 +38,7 @@ const Searchvideos = ({
   const [slides, setSlides] = useState<VideoSlide[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const videoRefs = useRef<(HTMLIFrameElement | null)[]>([]);
+  const { NEXT_PUBLIC_API_URL } = useAppConfig();
 
   return (
     <>
@@ -52,7 +54,7 @@ const Searchvideos = ({
             const customOpenAIKey = localStorage.getItem('openAIApiKey');
 
             const res = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/videos`,
+              `${NEXT_PUBLIC_API_URL}/videos`,
               {
                 method: 'POST',
                 headers: {
@@ -112,53 +114,53 @@ const Searchvideos = ({
           <div className="grid grid-cols-2 gap-2">
             {videos.length > 4
               ? videos.slice(0, 3).map((video, i) => (
-                  <div
-                    onClick={() => {
-                      setOpen(true);
-                      setSlides([
-                        slides[i],
-                        ...slides.slice(0, i),
-                        ...slides.slice(i + 1),
-                      ]);
-                    }}
-                    className="relative transition duration-200 active:scale-95 hover:scale-[1.02] cursor-pointer"
-                    key={i}
-                  >
-                    <img
-                      src={video.img_src}
-                      alt={video.title}
-                      className="relative h-full w-full aspect-video object-cover rounded-lg"
-                    />
-                    <div className="absolute bg-white/70 dark:bg-black/70 text-black/70 dark:text-white/70 px-2 py-1 flex flex-row items-center space-x-1 bottom-1 right-1 rounded-md">
-                      <PlayCircle size={15} />
-                      <p className="text-xs">Video</p>
-                    </div>
+                <div
+                  onClick={() => {
+                    setOpen(true);
+                    setSlides([
+                      slides[i],
+                      ...slides.slice(0, i),
+                      ...slides.slice(i + 1),
+                    ]);
+                  }}
+                  className="relative transition duration-200 active:scale-95 hover:scale-[1.02] cursor-pointer"
+                  key={i}
+                >
+                  <img
+                    src={video.img_src}
+                    alt={video.title}
+                    className="relative h-full w-full aspect-video object-cover rounded-lg"
+                  />
+                  <div className="absolute bg-white/70 dark:bg-black/70 text-black/70 dark:text-white/70 px-2 py-1 flex flex-row items-center space-x-1 bottom-1 right-1 rounded-md">
+                    <PlayCircle size={15} />
+                    <p className="text-xs">Video</p>
                   </div>
-                ))
+                </div>
+              ))
               : videos.map((video, i) => (
-                  <div
-                    onClick={() => {
-                      setOpen(true);
-                      setSlides([
-                        slides[i],
-                        ...slides.slice(0, i),
-                        ...slides.slice(i + 1),
-                      ]);
-                    }}
-                    className="relative transition duration-200 active:scale-95 hover:scale-[1.02] cursor-pointer"
-                    key={i}
-                  >
-                    <img
-                      src={video.img_src}
-                      alt={video.title}
-                      className="relative h-full w-full aspect-video object-cover rounded-lg"
-                    />
-                    <div className="absolute bg-white/70 dark:bg-black/70 text-black/70 dark:text-white/70 px-2 py-1 flex flex-row items-center space-x-1 bottom-1 right-1 rounded-md">
-                      <PlayCircle size={15} />
-                      <p className="text-xs">Video</p>
-                    </div>
+                <div
+                  onClick={() => {
+                    setOpen(true);
+                    setSlides([
+                      slides[i],
+                      ...slides.slice(0, i),
+                      ...slides.slice(i + 1),
+                    ]);
+                  }}
+                  className="relative transition duration-200 active:scale-95 hover:scale-[1.02] cursor-pointer"
+                  key={i}
+                >
+                  <img
+                    src={video.img_src}
+                    alt={video.title}
+                    className="relative h-full w-full aspect-video object-cover rounded-lg"
+                  />
+                  <div className="absolute bg-white/70 dark:bg-black/70 text-black/70 dark:text-white/70 px-2 py-1 flex flex-row items-center space-x-1 bottom-1 right-1 rounded-md">
+                    <PlayCircle size={15} />
+                    <p className="text-xs">Video</p>
                   </div>
-                ))}
+                </div>
+              ))}
             {videos.length > 4 && (
               <button
                 onClick={() => setOpen(true)}

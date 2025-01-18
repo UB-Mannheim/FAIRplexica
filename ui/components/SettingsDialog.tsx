@@ -14,8 +14,9 @@ import React, {
   type SelectHTMLAttributes,
 } from 'react';
 import ThemeSwitcher from './theme/Switcher';
+import useAppConfig from '@/hooks/useAppConfig';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> { }
 
 const Input = ({ className, ...restProps }: InputProps) => {
   return (
@@ -94,12 +95,13 @@ const SettingsDialog = ({
   const [customOpenAIBaseURL, setCustomOpenAIBaseURL] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const { NEXT_PUBLIC_API_URL } = useAppConfig();
 
   useEffect(() => {
     if (isOpen) {
       const fetchConfig = async () => {
         setIsLoading(true);
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/config`, {
+        const res = await fetch(`${NEXT_PUBLIC_API_URL}/config`, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -129,7 +131,7 @@ const SettingsDialog = ({
         const chatModel =
           localStorage.getItem('chatModel') ||
           (data.chatModelProviders &&
-          data.chatModelProviders[chatModelProvider]?.length > 0
+            data.chatModelProviders[chatModelProvider]?.length > 0
             ? data.chatModelProviders[chatModelProvider][0].name
             : undefined) ||
           '';
@@ -163,7 +165,7 @@ const SettingsDialog = ({
     setIsUpdating(true);
 
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/config`, {
+      await fetch(`${NEXT_PUBLIC_API_URL}/config`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -274,30 +276,30 @@ const SettingsDialog = ({
                             options={(() => {
                               const chatModelProvider =
                                 config.chatModelProviders[
-                                  selectedChatModelProvider
+                                selectedChatModelProvider
                                 ];
 
                               return chatModelProvider
                                 ? chatModelProvider.length > 0
                                   ? chatModelProvider.map((model) => ({
-                                      value: model.name,
-                                      label: model.displayName,
-                                    }))
+                                    value: model.name,
+                                    label: model.displayName,
+                                  }))
                                   : [
-                                      {
-                                        value: '',
-                                        label: 'No models available',
-                                        disabled: true,
-                                      },
-                                    ]
-                                : [
                                     {
                                       value: '',
-                                      label:
-                                        'Invalid provider, please check backend logs',
+                                      label: 'No models available',
                                       disabled: true,
                                     },
-                                  ];
+                                  ]
+                                : [
+                                  {
+                                    value: '',
+                                    label:
+                                      'Invalid provider, please check backend logs',
+                                    disabled: true,
+                                  },
+                                ];
                             })()}
                           />
                         </div>
@@ -385,30 +387,30 @@ const SettingsDialog = ({
                           options={(() => {
                             const embeddingModelProvider =
                               config.embeddingModelProviders[
-                                selectedEmbeddingModelProvider
+                              selectedEmbeddingModelProvider
                               ];
 
                             return embeddingModelProvider
                               ? embeddingModelProvider.length > 0
                                 ? embeddingModelProvider.map((model) => ({
-                                    label: model.displayName,
-                                    value: model.name,
-                                  }))
+                                  label: model.displayName,
+                                  value: model.name,
+                                }))
                                 : [
-                                    {
-                                      label: 'No embedding models available',
-                                      value: '',
-                                      disabled: true,
-                                    },
-                                  ]
-                              : [
                                   {
-                                    label:
-                                      'Invalid provider, please check backend logs',
+                                    label: 'No embedding models available',
                                     value: '',
                                     disabled: true,
                                   },
-                                ];
+                                ]
+                              : [
+                                {
+                                  label:
+                                    'Invalid provider, please check backend logs',
+                                  value: '',
+                                  disabled: true,
+                                },
+                              ];
                           })()}
                         />
                       </div>

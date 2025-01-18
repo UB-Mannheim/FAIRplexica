@@ -12,6 +12,7 @@ import { getSuggestions } from '@/lib/actions';
 import { Settings } from 'lucide-react';
 import SettingsDialog from './SettingsDialog';
 import NextError from 'next/error';
+import useAppConfig, { getAppConfig } from '@/hooks/useAppConfig';
 
 export type Message = {
   messageId: string;
@@ -40,6 +41,7 @@ const useSocket = (
   const isCleaningUpRef = useRef(false);
   const MAX_RETRIES = 3;
   const INITIAL_BACKOFF = 1000; // 1 second
+  const { NEXT_PUBLIC_API_URL } = useAppConfig();
 
   const getBackoffDelay = (retryCount: number) => {
     return Math.min(INITIAL_BACKOFF * Math.pow(2, retryCount), 10000); // Cap at 10 seconds
@@ -68,7 +70,7 @@ const useSocket = (
             : null;
 
         const providers = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/models`,
+          `${NEXT_PUBLIC_API_URL}/models`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -170,9 +172,9 @@ const useSocket = (
           ) {
             chatModel = Object.keys(
               chatModelProviders[
-                Object.keys(chatModelProviders[chatModelProvider]).length > 0
-                  ? chatModelProvider
-                  : Object.keys(chatModelProviders)[0]
+              Object.keys(chatModelProviders[chatModelProvider]).length > 0
+                ? chatModelProvider
+                : Object.keys(chatModelProviders)[0]
               ],
             )[0];
             localStorage.setItem('chatModel', chatModel);
@@ -331,8 +333,10 @@ const loadMessages = async (
   setFiles: (files: File[]) => void,
   setFileIds: (fileIds: string[]) => void,
 ) => {
+  const { NEXT_PUBLIC_API_URL } = getAppConfig() || {};
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/chats/${chatId}`,
+    `${NEXT_PUBLIC_API_URL}/chats/${chatId}`,
     {
       method: 'GET',
       headers: {
@@ -393,8 +397,9 @@ const ChatWindow = ({ id }: { id?: string }) => {
   const [isReady, setIsReady] = useState(false);
 
   const [isWSReady, setIsWSReady] = useState(false);
+  const { NEXT_PUBLIC_WS_URL } = useAppConfig();
   const ws = useSocket(
-    process.env.NEXT_PUBLIC_WS_URL!,
+    NEXT_PUBLIC_WS_URL!,
     setIsWSReady,
     setHasError,
   );
@@ -432,7 +437,7 @@ const ChatWindow = ({ id }: { id?: string }) => {
         setFocusMode,
         setNotFound,
         setFiles,
-        setFileIds,
+        setFileIds
       );
     } else if (!chatId) {
       setNewChatCreated(true);

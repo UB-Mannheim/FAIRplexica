@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import { Message } from './ChatWindow';
+import useAppConfig from '@/hooks/useAppConfig';
 
 type Image = {
   url: string;
@@ -22,6 +23,7 @@ const SearchImages = ({
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [slides, setSlides] = useState<any[]>([]);
+  const { NEXT_PUBLIC_API_URL } = useAppConfig();
 
   return (
     <>
@@ -37,7 +39,7 @@ const SearchImages = ({
             const customOpenAIKey = localStorage.getItem('openAIApiKey');
 
             const res = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/images`,
+              `${NEXT_PUBLIC_API_URL}/images`,
               {
                 method: 'POST',
                 headers: {
@@ -95,37 +97,37 @@ const SearchImages = ({
           <div className="grid grid-cols-2 gap-2">
             {images.length > 4
               ? images.slice(0, 3).map((image, i) => (
-                  <img
-                    onClick={() => {
-                      setOpen(true);
-                      setSlides([
-                        slides[i],
-                        ...slides.slice(0, i),
-                        ...slides.slice(i + 1),
-                      ]);
-                    }}
-                    key={i}
-                    src={image.img_src}
-                    alt={image.title}
-                    className="h-full w-full aspect-video object-cover rounded-lg transition duration-200 active:scale-95 hover:scale-[1.02] cursor-zoom-in"
-                  />
-                ))
+                <img
+                  onClick={() => {
+                    setOpen(true);
+                    setSlides([
+                      slides[i],
+                      ...slides.slice(0, i),
+                      ...slides.slice(i + 1),
+                    ]);
+                  }}
+                  key={i}
+                  src={image.img_src}
+                  alt={image.title}
+                  className="h-full w-full aspect-video object-cover rounded-lg transition duration-200 active:scale-95 hover:scale-[1.02] cursor-zoom-in"
+                />
+              ))
               : images.map((image, i) => (
-                  <img
-                    onClick={() => {
-                      setOpen(true);
-                      setSlides([
-                        slides[i],
-                        ...slides.slice(0, i),
-                        ...slides.slice(i + 1),
-                      ]);
-                    }}
-                    key={i}
-                    src={image.img_src}
-                    alt={image.title}
-                    className="h-full w-full aspect-video object-cover rounded-lg transition duration-200 active:scale-95 hover:scale-[1.02] cursor-zoom-in"
-                  />
-                ))}
+                <img
+                  onClick={() => {
+                    setOpen(true);
+                    setSlides([
+                      slides[i],
+                      ...slides.slice(0, i),
+                      ...slides.slice(i + 1),
+                    ]);
+                  }}
+                  key={i}
+                  src={image.img_src}
+                  alt={image.title}
+                  className="h-full w-full aspect-video object-cover rounded-lg transition duration-200 active:scale-95 hover:scale-[1.02] cursor-zoom-in"
+                />
+              ))}
             {images.length > 4 && (
               <button
                 onClick={() => setOpen(true)}

@@ -8,7 +8,7 @@ const AboutPage = () => {
       <div className="flex flex-col pt-4">
         <div className="flex items-center">
           <Info />
-          <h1 className="text-3xl font-medium p-2">About FAIRplexica</h1>
+          <h1 className="text-3xl font-medium p-2">About</h1>
         </div>
         <hr className="border-t border-[#2B2C2C] my-4 w-full" />
       </div>

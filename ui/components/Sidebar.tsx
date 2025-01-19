@@ -118,7 +118,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                 )}
               </button>
             )}
-            
+
           </VerticalIconContainer>
         </div>
       </div>

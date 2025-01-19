@@ -24,8 +24,8 @@ type EmptyChatMessageProps = {
 
 const EmptyChatMessageInput = ({
     sendMessage,
-    focusMode = 'webSearch', 
-    setFocusMode = () => {}, 
+    focusMode = 'webSearch',
+    setFocusMode = () => {},
     optimizationMode = 'balanced',
     setOptimizationMode = () => {},
     fileIds,
@@ -34,7 +34,7 @@ const EmptyChatMessageInput = ({
     setFiles,
   }: EmptyChatMessageProps) => {
     const [copilotEnabled, setCopilotEnabled] = useState(false);
-    const [message, setMessage] = useState('');  
+    const [message, setMessage] = useState('');
 
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -92,9 +92,9 @@ const EmptyChatMessageInput = ({
         <div className="flex flex-row items-center justify-between mt-4">
           {isAdminMode && (
               <div className="flex flex-row items-center space-x-2 lg:space-x-4">
-                <Focus 
-                  focusMode={focusMode || 'default'} 
-                  setFocusMode={setFocusMode}  
+                <Focus
+                  focusMode={focusMode || 'default'}
+                  setFocusMode={setFocusMode}
                 />
                 <Attach
                   fileIds={fileIds}

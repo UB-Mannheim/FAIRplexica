@@ -667,7 +667,7 @@ const ChatWindow = ({ id }: { id?: string }) => {
               optimizationMode,
               setOptimizationMode,
             })}
-          />  
+          />
         )}
       </div>
     )

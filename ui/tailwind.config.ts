@@ -10,7 +10,7 @@ const themeDark = (colors: DefaultColors) => ({
 const themeLight = (colors: DefaultColors) => ({
   50: '#ffffff',
   100: '#aab9ca',
-  200: '#222f58',  
+  200: '#222f58',
 });
 
 const config: Config = {

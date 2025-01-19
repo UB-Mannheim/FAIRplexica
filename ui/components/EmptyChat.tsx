@@ -119,7 +119,7 @@ const EmptyChat = ({
         />
 
         {/* Predefined questions */}
-        <div className="space-y-2">
+        <div className="space-y-2 items-center justify-center">
           {randomPredefinedQuestions.map((question) => (
             <button
               key={question}

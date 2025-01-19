@@ -121,7 +121,7 @@ const SettingsDialog = ({
   const [customOpenAIBaseURL, setCustomOpenAIBaseURL] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
-  
+
  // Toggle visibility of all API keys
  const [showAllApiKeys, setShowAllApiKeys] = useState<boolean>(false);
 
@@ -277,7 +277,7 @@ const SettingsDialog = ({
                   </button>
 
                 </div>
-                
+
                 {config && !isLoading && (
                   <div className="flex flex-col space-y-4 mt-6">
                     <div className="flex flex-col space-y-1">
@@ -514,7 +514,7 @@ const SettingsDialog = ({
                         })
                       }
                       showApiKeys={showAllApiKeys}
-                    />  
+                    />
 
                     <div className="flex flex-col space-y-1">
                       <p className="text-black/70 dark:text-white/70 text-sm">

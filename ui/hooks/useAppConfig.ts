@@ -18,10 +18,15 @@ const fetchAppConfig = async () => {
 
 const syncAppConfig = async () => {
   const config = await fetchAppConfig();
-  localStorage.setItem('appConfig', JSON.stringify(config));
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('appConfig', JSON.stringify(config));
+  }
 };
 
 export const getAppConfig = () => {
+  if (typeof window === 'undefined') {
+    return {};
+  }
   const storedConfig = localStorage.getItem('appConfig');
   return JSON.parse(storedConfig ?? '{}');
 };

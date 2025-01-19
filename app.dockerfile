@@ -13,7 +13,7 @@ RUN yarn install --frozen-lockfile
 FROM base AS builder
 WORKDIR /home/perplexica
 COPY --from=deps /home/perplexica/node_modules ./node_modules
-COPY ui/* .
+COPY ui/ .
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN yarn install
 RUN yarn build

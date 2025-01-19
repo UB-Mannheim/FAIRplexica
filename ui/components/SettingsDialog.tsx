@@ -95,13 +95,13 @@ const SettingsDialog = ({
   const [customOpenAIBaseURL, setCustomOpenAIBaseURL] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
-  const { NEXT_PUBLIC_API_URL } = useAppConfig();
+  const { API_URL } = useAppConfig();
 
   useEffect(() => {
     if (isOpen) {
       const fetchConfig = async () => {
         setIsLoading(true);
-        const res = await fetch(`${NEXT_PUBLIC_API_URL}/config`, {
+        const res = await fetch(`${API_URL}/config`, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -165,7 +165,7 @@ const SettingsDialog = ({
     setIsUpdating(true);
 
     try {
-      await fetch(`${NEXT_PUBLIC_API_URL}/config`, {
+      await fetch(`${API_URL}/config`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

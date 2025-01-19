@@ -16,12 +16,12 @@ interface Discover {
 const Page = () => {
   const [discover, setDiscover] = useState<Discover[] | null>(null);
   const [loading, setLoading] = useState(true);
-  const { NEXT_PUBLIC_API_URL } = useAppConfig();
+  const { API_URL } = useAppConfig();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${NEXT_PUBLIC_API_URL}/discover`, {
+        const res = await fetch(`${API_URL}/discover`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

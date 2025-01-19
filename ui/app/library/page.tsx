@@ -17,13 +17,13 @@ export interface Chat {
 const Page = () => {
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(true);
-  const { NEXT_PUBLIC_API_URL } = useAppConfig();
+  const { API_URL } = useAppConfig();
 
   useEffect(() => {
     const fetchChats = async () => {
       setLoading(true);
 
-      const res = await fetch(`${NEXT_PUBLIC_API_URL}/chats`, {
+      const res = await fetch(`${API_URL}/chats`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -38,7 +38,7 @@ const Searchvideos = ({
   const [slides, setSlides] = useState<VideoSlide[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const videoRefs = useRef<(HTMLIFrameElement | null)[]>([]);
-  const { NEXT_PUBLIC_API_URL } = useAppConfig();
+  const { API_URL } = useAppConfig();
 
   return (
     <>
@@ -54,7 +54,7 @@ const Searchvideos = ({
             const customOpenAIKey = localStorage.getItem('openAIApiKey');
 
             const res = await fetch(
-              `${NEXT_PUBLIC_API_URL}/videos`,
+              `${API_URL}/videos`,
               {
                 method: 'POST',
                 headers: {

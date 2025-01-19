@@ -17,8 +17,9 @@ const fetchAppConfig = async () => {
 };
 
 const syncAppConfig = async () => {
-  const config = await fetchAppConfig();
-  if (typeof window !== 'undefined') {
+  const config = getAppConfig();
+  if (Object.keys(config).length === 0 && typeof window !== 'undefined') {
+    const config = await fetchAppConfig();
     localStorage.setItem('appConfig', JSON.stringify(config));
   }
 };

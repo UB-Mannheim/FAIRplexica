@@ -41,7 +41,7 @@ const useSocket = (
   const isCleaningUpRef = useRef(false);
   const MAX_RETRIES = 3;
   const INITIAL_BACKOFF = 1000; // 1 second
-  const { NEXT_PUBLIC_API_URL } = useAppConfig();
+  const { API_URL } = useAppConfig();
 
   const getBackoffDelay = (retryCount: number) => {
     return Math.min(INITIAL_BACKOFF * Math.pow(2, retryCount), 10000); // Cap at 10 seconds
@@ -70,7 +70,7 @@ const useSocket = (
             : null;
 
         const providers = await fetch(
-          `${NEXT_PUBLIC_API_URL}/models`,
+          `${API_URL}/models`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -333,10 +333,10 @@ const loadMessages = async (
   setFiles: (files: File[]) => void,
   setFileIds: (fileIds: string[]) => void,
 ) => {
-  const { NEXT_PUBLIC_API_URL } = getAppConfig() || {};
+  const { API_URL } = getAppConfig() || {};
 
   const res = await fetch(
-    `${NEXT_PUBLIC_API_URL}/chats/${chatId}`,
+    `${API_URL}/chats/${chatId}`,
     {
       method: 'GET',
       headers: {
@@ -397,9 +397,9 @@ const ChatWindow = ({ id }: { id?: string }) => {
   const [isReady, setIsReady] = useState(false);
 
   const [isWSReady, setIsWSReady] = useState(false);
-  const { NEXT_PUBLIC_WS_URL } = useAppConfig();
+  const { WS_URL } = useAppConfig();
   const ws = useSocket(
-    NEXT_PUBLIC_WS_URL!,
+    WS_URL!,
     setIsWSReady,
     setHasError,
   );

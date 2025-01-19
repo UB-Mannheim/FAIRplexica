@@ -26,13 +26,13 @@ const DeleteChat = ({
 }) => {
   const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { NEXT_PUBLIC_API_URL } = useAppConfig();
+  const { API_URL } = useAppConfig();
 
   const handleDelete = async () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `${NEXT_PUBLIC_API_URL}/chats/${chatId}`,
+        `${API_URL}/chats/${chatId}`,
         {
           method: 'DELETE',
           headers: {

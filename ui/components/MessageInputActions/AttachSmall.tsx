@@ -23,7 +23,7 @@ const AttachSmall = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<any>();
-  const { NEXT_PUBLIC_API_URL } = getAppConfig() || {};
+  const { API_URL } = getAppConfig() || {};
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoading(true);
@@ -41,7 +41,7 @@ const AttachSmall = ({
     data.append('embedding_model_provider', embeddingModelProvider!);
     data.append('embedding_model', embeddingModel!);
 
-    const res = await fetch(`${NEXT_PUBLIC_API_URL}/uploads`, {
+    const res = await fetch(`${API_URL}/uploads`, {
       method: 'POST',
       body: data,
     });

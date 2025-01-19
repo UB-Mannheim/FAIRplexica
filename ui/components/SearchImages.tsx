@@ -23,7 +23,7 @@ const SearchImages = ({
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [slides, setSlides] = useState<any[]>([]);
-  const { NEXT_PUBLIC_API_URL } = useAppConfig();
+  const { API_URL } = useAppConfig();
 
   return (
     <>
@@ -39,7 +39,7 @@ const SearchImages = ({
             const customOpenAIKey = localStorage.getItem('openAIApiKey');
 
             const res = await fetch(
-              `${NEXT_PUBLIC_API_URL}/images`,
+              `${API_URL}/images`,
               {
                 method: 'POST',
                 headers: {

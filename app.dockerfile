@@ -34,10 +34,10 @@ COPY --from=builder /home/perplexica/package.json ./package.json
 COPY --from=builder --chown=nextjs:nodejs /home/perplexica/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /home/perplexica/.next/static ./.next/static
 
-ARG NEXT_PUBLIC_WS_URL=ws://127.0.0.1:3001
-ARG NEXT_PUBLIC_API_URL=http://127.0.0.1:3001/api
-ENV NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL}
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ARG WS_URL=ws://127.0.0.1:3001
+ARG API_URL=http://127.0.0.1:3001/api
+ENV WS_URL=${WS_URL}
+ENV API_URL=${API_URL}
 
 USER nextjs
 EXPOSE 3000

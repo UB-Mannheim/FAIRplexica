@@ -33,7 +33,7 @@
 
 7. Create a new file named `.env`, open it and paste the following lines into it:
 
-    ```toml
+    ```
     NEXT_PUBLIC_WS_URL=ws://localhost:3001
     NEXT_PUBLIC_API_URL=http://localhost:3001/api
 

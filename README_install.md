@@ -64,10 +64,10 @@
    docker compose up -d
    ```
 
-    It docker will pull the images, install everything and startup the server. This may take a while.
+    Docker will pull the images, install everything and start the server. This may take a while.
 
 10. Open `http://localhost:3000/` in your browser, to check if everything works correctly.
 
 11. Navigate to `http://localhost:3000/admin` and log in into the **Admin Dashboard** with the username and password you have set in section 7.
 
-    - Inside the dashboard you can set your LLM and embedding models as well as API keys and your `Ollama` URL
+    - Inside the dashboard you can set your LLM and embedding models as well as API keys and your `Ollama` URL.

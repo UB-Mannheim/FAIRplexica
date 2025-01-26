@@ -4,6 +4,7 @@ import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import useAppConfig from '@/hooks/useAppConfig';
 
 interface Discover {
   title: string;
@@ -15,11 +16,12 @@ interface Discover {
 const Page = () => {
   const [discover, setDiscover] = useState<Discover[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const { API_URL } = useAppConfig();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discover`, {
+        const res = await fetch(`${API_URL}/discover`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

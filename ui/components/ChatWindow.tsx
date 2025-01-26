@@ -9,7 +9,10 @@ import crypto from 'crypto';
 import { toast } from 'sonner';
 import { useSearchParams } from 'next/navigation';
 import { getSuggestions } from '@/lib/actions';
+import { Settings } from 'lucide-react';
+import SettingsDialog from './SettingsDialog';
 import NextError from 'next/error';
+import useAppConfig, { getAppConfig } from '@/hooks/useAppConfig';
 
 export type Message = {
   messageId: string;
@@ -41,6 +44,7 @@ const useSocket = (
   const isCleaningUpRef = useRef(false);
   const MAX_RETRIES = 3;
   const INITIAL_BACKOFF = 1000; // 1 second
+  const { API_URL } = useAppConfig();
 
   const getBackoffDelay = (retryCount: number) => {
     return Math.min(INITIAL_BACKOFF * Math.pow(2, retryCount), 10000); // Cap at 10 seconds
@@ -69,7 +73,7 @@ const useSocket = (
             : null;
 
         const providers = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/models`,
+          `${API_URL}/models`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -171,9 +175,9 @@ const useSocket = (
           ) {
             chatModel = Object.keys(
               chatModelProviders[
-                Object.keys(chatModelProviders[chatModelProvider]).length > 0
-                  ? chatModelProvider
-                  : Object.keys(chatModelProviders)[0]
+              Object.keys(chatModelProviders[chatModelProvider]).length > 0
+                ? chatModelProvider
+                : Object.keys(chatModelProviders)[0]
               ],
             )[0];
             localStorage.setItem('chatModel', chatModel);
@@ -332,8 +336,10 @@ const loadMessages = async (
   setFiles: (files: File[]) => void,
   setFileIds: (fileIds: string[]) => void,
 ) => {
+  const { API_URL } = getAppConfig() || {};
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/chats/${chatId}`,
+    `${API_URL}/chats/${chatId}`,
     {
       method: 'GET',
       headers: {
@@ -394,8 +400,9 @@ const ChatWindow = ({ id }: { id?: string }) => {
   const [isReady, setIsReady] = useState(false);
 
   const [isWSReady, setIsWSReady] = useState(false);
+  const { WS_URL } = useAppConfig();
   const ws = useSocket(
-    process.env.NEXT_PUBLIC_WS_URL!,
+    WS_URL!,
     setIsWSReady,
     setHasError,
   );
@@ -416,6 +423,8 @@ const ChatWindow = ({ id }: { id?: string }) => {
 
   const [notFound, setNotFound] = useState(false);
 
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
   useEffect(() => {
     if (
       chatId &&
@@ -431,7 +440,7 @@ const ChatWindow = ({ id }: { id?: string }) => {
         setFocusMode,
         setNotFound,
         setFiles,
-        setFileIds,
+        setFileIds
       );
     } else if (!chatId) {
       setNewChatCreated(true);
@@ -626,10 +635,19 @@ const ChatWindow = ({ id }: { id?: string }) => {
 
   if (hasError) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <p className="dark:text-white/70 text-black/70 text-sm">
-          Failed to connect to the server. Please try again later.
-        </p>
+      <div className="relative">
+        <div className="absolute w-full flex flex-row items-center justify-end mr-5 mt-5">
+          <Settings
+            className="cursor-pointer lg:hidden"
+            onClick={() => setIsSettingsOpen(true)}
+          />
+        </div>
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <p className="dark:text-white/70 text-black/70 text-sm">
+            Failed to connect to the server. Please try again later.
+          </p>
+        </div>
+        <SettingsDialog isOpen={isSettingsOpen} setIsOpen={setIsSettingsOpen} />
       </div>
     );
   }

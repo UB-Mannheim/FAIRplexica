@@ -8,6 +8,7 @@ import {
 import { CopyPlus, File, LoaderCircle, Plus, Trash } from 'lucide-react';
 import { Fragment, useRef, useState } from 'react';
 import { File as FileType } from '../ChatWindow';
+import { getAppConfig } from '@/hooks/useAppConfig';
 
 const Attach = ({
   fileIds,
@@ -40,8 +41,9 @@ const Attach = ({
 
     data.append('embedding_model_provider', embeddingModelProvider!);
     data.append('embedding_model', embeddingModel!);
+    const { API_URL } = getAppConfig() || {};
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/uploads`, {
+    const res = await fetch(`${API_URL}/uploads`, {
       method: 'POST',
       body: data,
     });
@@ -84,8 +86,8 @@ const Attach = ({
             <p className="text-sky-400 text-xs font-medium">
               {files[0].fileName.length > 10
                 ? files[0].fileName.replace(/\.\w+$/, '').substring(0, 3) +
-                  '...' +
-                  files[0].fileExtension
+                '...' +
+                files[0].fileExtension
                 : files[0].fileName}
             </p>
           </>
@@ -148,8 +150,8 @@ const Attach = ({
                   <p className="text-white/70 text-sm">
                     {file.fileName.length > 25
                       ? file.fileName.replace(/\.\w+$/, '').substring(0, 25) +
-                        '...' +
-                        file.fileExtension
+                      '...' +
+                      file.fileExtension
                       : file.fileName}
                   </p>
                 </div>

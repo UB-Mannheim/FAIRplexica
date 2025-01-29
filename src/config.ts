@@ -16,10 +16,18 @@ interface Config {
     GROQ: string;
     ANTHROPIC: string;
     GEMINI: string;
+    CUSTOM_OPENAI_API_KEY?: string;
   };
   API_ENDPOINTS: {
     SEARXNG: string;
     OLLAMA: string;
+    CUSTOM_OPENAI_BASE_URL?: string;
+  };
+  MODEL_SELECTION?: {
+    SELECTED_CHAT_MODEL_PROVIDER?: string;
+    SELECTED_CHAT_MODEL?: string;
+    SELECTED_EMBEDDING_MODEL_PROVIDER?: string;
+    SELECTED_EMBEDDING_MODEL?: string;
   };
 }
 
@@ -50,10 +58,28 @@ export const getAnthropicApiKey = () => loadConfig().API_KEYS.ANTHROPIC;
 
 export const getGeminiApiKey = () => loadConfig().API_KEYS.GEMINI;
 
+export const getCustomOpenAIApiKey = () => 
+  loadConfig().API_KEYS.CUSTOM_OPENAI_API_KEY;
+
 export const getSearxngApiEndpoint = () =>
   process.env.SEARXNG_API_URL || loadConfig().API_ENDPOINTS.SEARXNG;
 
 export const getOllamaApiEndpoint = () => loadConfig().API_ENDPOINTS.OLLAMA;
+
+export const getCustomOpenAIBaseURL = () =>
+  loadConfig().API_ENDPOINTS.CUSTOM_OPENAI_BASE_URL;
+
+export const getSelectedChatModelProvider = () =>
+  loadConfig().MODEL_SELECTION?.SELECTED_CHAT_MODEL_PROVIDER;
+
+export const getSelectedChatModel = () =>
+  loadConfig().MODEL_SELECTION?.SELECTED_CHAT_MODEL;
+
+export const getSelectedEmbeddingModelProvider = () =>
+  loadConfig().MODEL_SELECTION?.SELECTED_EMBEDDING_MODEL_PROVIDER;
+
+export const getSelectedEmbeddingModel = () =>
+  loadConfig().MODEL_SELECTION?.SELECTED_EMBEDDING_MODEL;
 
 export const updateConfig = (config: RecursivePartial<Config>) => {
   const currentConfig = loadConfig();

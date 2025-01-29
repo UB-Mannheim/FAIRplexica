@@ -14,8 +14,9 @@ import React, {
   type SelectHTMLAttributes,
 } from 'react';
 import ThemeSwitcher from './theme/Switcher';
+import useAppConfig from '@/hooks/useAppConfig';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> { }
 
 const Input = ({ className, ...restProps }: InputProps) => {
   return (
@@ -65,6 +66,12 @@ interface SettingsType {
   anthropicApiKey: string;
   geminiApiKey: string;
   ollamaApiUrl: string;
+  customOpenAIApiKey?: string;
+  customOpenAIBaseURL?: string;
+  selectedChatModelProvider?: string;
+  selectedChatModel?: string;
+  selectedEmbeddingModelProvider?: string;
+  selectedEmbeddingModel?: string;
 }
 
 // API key probs
@@ -121,6 +128,7 @@ const SettingsDialog = ({
   const [customOpenAIBaseURL, setCustomOpenAIBaseURL] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const { API_URL } = useAppConfig();
 
  // Toggle visibility of all API keys
  const [showAllApiKeys, setShowAllApiKeys] = useState<boolean>(false);
@@ -129,7 +137,7 @@ const SettingsDialog = ({
     if (isOpen) {
       const fetchConfig = async () => {
         setIsLoading(true);
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/config`, {
+        const res = await fetch(`${API_URL}/config`, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -159,7 +167,7 @@ const SettingsDialog = ({
         const chatModel =
           localStorage.getItem('chatModel') ||
           (data.chatModelProviders &&
-          data.chatModelProviders[chatModelProvider]?.length > 0
+            data.chatModelProviders[chatModelProvider]?.length > 0
             ? data.chatModelProviders[chatModelProvider][0].name
             : undefined) ||
           '';
@@ -193,12 +201,25 @@ const SettingsDialog = ({
     setIsUpdating(true);
 
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/config`, {
+      if (!config) return;
+
+      // 2) Update config with all the new fields so they get saved to config.toml
+      const updatedConfig: SettingsType = {
+        ...config,
+        customOpenAIApiKey,
+        customOpenAIBaseURL,
+        selectedChatModelProvider: selectedChatModelProvider || '',
+        selectedChatModel: selectedChatModel || '',
+        selectedEmbeddingModelProvider: selectedEmbeddingModelProvider || '',
+        selectedEmbeddingModel: selectedEmbeddingModel || '',
+      };
+
+      await fetch(`${API_URL}/config`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(config),
+        body: JSON.stringify(updatedConfig),
       });
 
       localStorage.setItem('chatModelProvider', selectedChatModelProvider!);
@@ -210,13 +231,14 @@ const SettingsDialog = ({
       localStorage.setItem('embeddingModel', selectedEmbeddingModel!);
       localStorage.setItem('openAIApiKey', customOpenAIApiKey!);
       localStorage.setItem('openAIBaseURL', customOpenAIBaseURL!);
+
+      // Finally close dialog and refresh
+      setIsOpen(false);
+      window.location.reload();
     } catch (err) {
       console.log(err);
     } finally {
       setIsUpdating(false);
-      setIsOpen(false);
-
-      window.location.reload();
     }
   };
 
@@ -294,13 +316,14 @@ const SettingsDialog = ({
                         <Select
                           value={selectedChatModelProvider ?? undefined}
                           onChange={(e) => {
-                            setSelectedChatModelProvider(e.target.value);
-                            if (e.target.value === 'custom_openai') {
-                              setSelectedChatModel('');
+                            const newProvider = e.target.value;
+                            setSelectedChatModelProvider(newProvider);
+
+                            if (newProvider === 'custom_openai') {
+                              setSelectedChatModel(selectedChatModel || '');
                             } else {
                               setSelectedChatModel(
-                                config.chatModelProviders[e.target.value][0]
-                                  .name,
+                                config.chatModelProviders[newProvider][0].name,
                               );
                             }
                           }}
@@ -329,30 +352,30 @@ const SettingsDialog = ({
                             options={(() => {
                               const chatModelProvider =
                                 config.chatModelProviders[
-                                  selectedChatModelProvider
+                                selectedChatModelProvider
                                 ];
 
                               return chatModelProvider
                                 ? chatModelProvider.length > 0
                                   ? chatModelProvider.map((model) => ({
-                                      value: model.name,
-                                      label: model.displayName,
-                                    }))
+                                    value: model.name,
+                                    label: model.displayName,
+                                  }))
                                   : [
-                                      {
-                                        value: '',
-                                        label: 'No models available',
-                                        disabled: true,
-                                      },
-                                    ]
-                                : [
                                     {
                                       value: '',
-                                      label:
-                                        'Invalid provider, please check backend logs',
+                                      label: 'No models available',
                                       disabled: true,
                                     },
-                                  ];
+                                  ]
+                                : [
+                                  {
+                                    value: '',
+                                    label:
+                                      'Invalid provider, please check backend logs',
+                                    disabled: true,
+                                  },
+                                ];
                             })()}
                           />
                         </div>
@@ -362,7 +385,7 @@ const SettingsDialog = ({
                         <>
                           <div className="flex flex-col space-y-1">
                             <p className="text-black/70 dark:text-white/70 text-sm">
-                              Model name
+                              Model Name
                             </p>
                             <Input
                               type="text"
@@ -403,7 +426,7 @@ const SettingsDialog = ({
                     {config.embeddingModelProviders && (
                       <div className="flex flex-col space-y-1">
                         <p className="text-black/70 dark:text-white/70 text-sm">
-                          Embedding model Provider
+                          Embedding Model Provider
                         </p>
                         <Select
                           value={selectedEmbeddingModelProvider ?? undefined}
@@ -438,30 +461,30 @@ const SettingsDialog = ({
                           options={(() => {
                             const embeddingModelProvider =
                               config.embeddingModelProviders[
-                                selectedEmbeddingModelProvider
+                              selectedEmbeddingModelProvider
                               ];
 
                             return embeddingModelProvider
                               ? embeddingModelProvider.length > 0
                                 ? embeddingModelProvider.map((model) => ({
-                                    label: model.displayName,
-                                    value: model.name,
-                                  }))
+                                  label: model.displayName,
+                                  value: model.name,
+                                }))
                                 : [
-                                    {
-                                      label: 'No embedding models available',
-                                      value: '',
-                                      disabled: true,
-                                    },
-                                  ]
-                              : [
                                   {
-                                    label:
-                                      'Invalid provider, please check backend logs',
+                                    label: 'No embedding models available',
                                     value: '',
                                     disabled: true,
                                   },
-                                ];
+                                ]
+                              : [
+                                {
+                                  label:
+                                    'Invalid provider, please check backend logs',
+                                  value: '',
+                                  disabled: true,
+                                },
+                              ];
                           })()}
                         />
                       </div>

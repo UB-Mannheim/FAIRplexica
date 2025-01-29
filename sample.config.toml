@@ -1,15 +1,26 @@
-[GENERAL]
-PORT = 3001                                 # Port to run the server on
-SIMILARITY_MEASURE = "cosine"               # "cosine" or "dot"
-KEEP_ALIVE = "5m"                           # How long to keep Ollama models loaded into memory. (Instead of using -1 use "-1m")
-GLOBAL_CONTEXT = "research data management" # Context for metasearch (Leave as is)
-
 [API_KEYS]
-OPENAI = ""     # OpenAI API key
-GROQ = ""       # Groq API key
-ANTHROPIC = ""  # Anthropic API key
-GEMINI = ""     # Gemini API key
+# API keys for various LLM service providers
+OPENAI = ""
+GROQ = ""
+ANTHROPIC = ""
+GEMINI = ""
+CUSTOM_OPENAI_API_KEY = ""
 
 [API_ENDPOINTS]
-SEARXNG = "http://localhost:32768"  # SearxNG API URL
-OLLAMA = ""                         # Ollama API URL; e.g. http://host.docker.internal:11434
+# API endpoints for Ollama, Custom LLM Services and SearXNG
+OLLAMA = "" # Ollama API URL; e.g. http://host.docker.internal:11434
+SEARXNG = "http://localhost:32768" # SearxNG API URL
+CUSTOM_OPENAI_BASE_URL = ""
+
+[MODEL_SELECTION]
+# You can set this section in the admin dashboard
+SELECTED_CHAT_MODEL_PROVIDER = "groq"
+SELECTED_CHAT_MODEL = "llama-3.3-70b-versatile"
+SELECTED_EMBEDDING_MODEL_PROVIDER = "ollama"
+SELECTED_EMBEDDING_MODEL = "nomic-embed-text:latest"
+
+[GENERAL]
+PORT = 3_001 # Port to run the server on
+SIMILARITY_MEASURE = "cosine" # "cosine" or "dot"
+KEEP_ALIVE = "5m" # How long to keep Ollama models loaded into memory. (Instead of using -1 use "-1m")
+GLOBAL_CONTEXT = "research data management" # Context for metasearch (leave as is)

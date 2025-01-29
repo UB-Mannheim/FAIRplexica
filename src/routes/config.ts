@@ -71,9 +71,17 @@ router.post('/', async (req, res) => {
       GROQ: config.groqApiKey,
       ANTHROPIC: config.anthropicApiKey,
       GEMINI: config.geminiApiKey,
+      CUSTOM_OPENAI_API_KEY: config.customOpenAIApiKey
     },
     API_ENDPOINTS: {
       OLLAMA: config.ollamaApiUrl,
+      CUSTOM_OPENAI_BASE_URL: config.customOpenAIBaseURL,
+    },
+    MODEL_SELECTION: {
+      SELECTED_CHAT_MODEL_PROVIDER: config.selectedChatModelProvider,
+      SELECTED_CHAT_MODEL: config.selectedChatModel,
+      SELECTED_EMBEDDING_MODEL_PROVIDER: config.selectedEmbeddingModelProvider,
+      SELECTED_EMBEDDING_MODEL: config.selectedEmbeddingModel,
     },
   };
 

@@ -40,7 +40,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.2",
-    "express": "^4.19.2",
+    "express": "^4.21.2",
     "html-to-text": "^9.0.5",
     "langchain": "^0.1.30",
     "mammoth": "^1.8.0",

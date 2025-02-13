@@ -8,7 +8,7 @@ FAIR-Perplexica is an open-source AI-powered searching tool on topics related to
 2. Clone the FAIRplexica repository:
 
    ```bash
-   git clone https://github.com/tsmdt/FAIRplexica
+   git clone https://github.com/UB-Mannheim/FAIRplexica
    ```
 
 3. After cloning, navigate to the project directory:

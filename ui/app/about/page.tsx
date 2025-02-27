@@ -14,7 +14,7 @@ const AboutPage = () => {
             className="text-black dark:text-white lg:text-lg font-medium truncate transition duration-200 hover:text-[#ADB8C8] dark:hover:text-[#ADB8C8] cursor-pointer"
           >
             SearXNG
-          </a>. The collected search result are then processed by a local LLM using{' '}
+          </a>. The collected search results are then processed by a local LLM using{' '}
           <a
             href="https://github.com/ollama/ollama"
             target="_blank"

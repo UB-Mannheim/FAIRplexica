@@ -210,7 +210,7 @@ const useSocket = (
         const timeoutId = setTimeout(() => {
           if (ws.readyState !== 1) {
             toast.error(
-              'Failed to connect to the server. Please try again later.',
+              'Failed to connect to the server. Please try it later.',
             );
           }
         }, 10000);

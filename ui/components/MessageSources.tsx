@@ -102,6 +102,9 @@ const MessageSources = ({ sources }: { sources: Document[] }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className="w-full max-w-md transform rounded-2xl bg-light-secondary dark:bg-dark-secondary border border-light-200 dark:border-dark-200 p-6 text-left align-middle shadow-xl transition-all">
+                  
+                  {/* Sources */}
+                  
                   <DialogTitle className="text-lg font-medium leading-6 dark:text-white">
                     Sources
                   </DialogTitle>

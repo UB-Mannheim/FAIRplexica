@@ -7,6 +7,9 @@ import CopilotToggle from './MessageInputActions/Copilot';
 import { File } from './ChatWindow';
 import AttachSmall from './MessageInputActions/AttachSmall';
 
+// Check for admin mode to show/hide  UI elements
+const isAdminMode = process.env.NEXT_PUBLIC_ADMIN_MODE === 'true';
+
 const MessageInput = ({
   sendMessage,
   loading,
@@ -79,7 +82,7 @@ const MessageInput = ({
         mode === 'multi' ? 'flex-col rounded-lg' : 'flex-row rounded-full',
       )}
     >
-      {mode === 'single' && (
+      {mode === 'single' && isAdminMode && (
         <AttachSmall
           fileIds={fileIds}
           setFileIds={setFileIds}
@@ -99,38 +102,47 @@ const MessageInput = ({
       />
       {mode === 'single' && (
         <div className="flex flex-row items-center space-x-4">
-          <CopilotToggle
-            copilotEnabled={copilotEnabled}
-            setCopilotEnabled={setCopilotEnabled}
-          />
+          {isAdminMode && (
+            <CopilotToggle
+              copilotEnabled={copilotEnabled}
+              setCopilotEnabled={setCopilotEnabled}
+            />
+          )}
+
           <button
             disabled={message.trim().length === 0 || loading}
             className="bg-[#24A0ED] text-white disabled:text-black/50 dark:disabled:text-white/50 hover:bg-opacity-85 transition duration-100 disabled:bg-[#e0e0dc79] dark:disabled:bg-[#ececec21] rounded-full p-2"
           >
             <ArrowUp className="bg-background" size={17} />
           </button>
+
         </div>
       )}
       {mode === 'multi' && (
         <div className="flex flex-row items-center justify-between w-full pt-2">
-          <AttachSmall
-            fileIds={fileIds}
-            setFileIds={setFileIds}
-            files={files}
-            setFiles={setFiles}
-          />
-          <div className="flex flex-row items-center space-x-4">
-            <CopilotToggle
-              copilotEnabled={copilotEnabled}
-              setCopilotEnabled={setCopilotEnabled}
-            />
-            <button
-              disabled={message.trim().length === 0 || loading}
-              className="bg-[#24A0ED] text-white text-black/50 dark:disabled:text-white/50 hover:bg-opacity-85 transition duration-100 disabled:bg-[#e0e0dc79] dark:disabled:bg-[#ececec21] rounded-full p-2"
-            >
-              <ArrowUp className="bg-background" size={17} />
-            </button>
-          </div>
+          {isAdminMode && (
+            <>
+              <AttachSmall
+                fileIds={fileIds}
+                setFileIds={setFileIds}
+                files={files}
+                setFiles={setFiles}
+              />
+              <div className="flex flex-row items-center space-x-4">
+                <CopilotToggle
+                  copilotEnabled={copilotEnabled}
+                  setCopilotEnabled={setCopilotEnabled}
+                />
+              </div>
+            </>
+          )}
+
+          <button
+            disabled={message.trim().length === 0 || loading}
+            className="bg-[#24A0ED] text-white text-black/50 dark:disabled:text-white/50 hover:bg-opacity-85 transition duration-100 disabled:bg-[#e0e0dc79] dark:disabled:bg-[#ececec21] rounded-full p-2"
+          >
+            <ArrowUp className="bg-background" size={17} />
+          </button>
         </div>
       )}
     </form>

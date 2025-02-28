@@ -29,6 +29,9 @@ export interface File {
   fileId: string;
 }
 
+// Check for admin mode to show/hide  UI elements
+const isAdminMode = process.env.NEXT_PUBLIC_ADMIN_MODE === 'true';
+
 const useSocket = (
   url: string,
   setIsWSReady: (ready: boolean) => void,
@@ -660,15 +663,17 @@ const ChatWindow = ({ id }: { id?: string }) => {
         ) : (
           <EmptyChat
             sendMessage={sendMessage}
-            focusMode={focusMode}
-            setFocusMode={setFocusMode}
-            optimizationMode={optimizationMode}
-            setOptimizationMode={setOptimizationMode}
             fileIds={fileIds}
             setFileIds={setFileIds}
             files={files}
             setFiles={setFiles}
-          />
+            {...(isAdminMode && {
+              focusMode,
+              setFocusMode,
+              optimizationMode,
+              setOptimizationMode,
+            })}
+          /> 
         )}
       </div>
     )

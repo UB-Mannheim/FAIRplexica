@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import Sidebar from '@/components/Sidebar';
 import { Toaster } from 'sonner';
 import ThemeProvider from '@/components/theme/Provider';
+import AuthProvider from '@/components/auth/AuthProvider'; // Import the client component
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '700'],
@@ -27,18 +28,20 @@ export default function RootLayout({
   return (
     <html className="h-full" lang="en" suppressHydrationWarning>
       <body className={cn('h-full', montserrat.className)}>
-        <ThemeProvider>
-          <Sidebar>{children}</Sidebar>
-          <Toaster
-            toastOptions={{
-              unstyled: true,
-              classNames: {
-                toast:
-                  'bg-light-primary dark:bg-dark-secondary dark:text-white/70 text-black-70 rounded-lg p-4 flex flex-row items-center space-x-2',
-              },
-            }}
-          />
-        </ThemeProvider>
+        <AuthProvider> {/* Use the client component wrapper */}
+          <ThemeProvider>
+            <Sidebar>{children}</Sidebar>
+            <Toaster
+              toastOptions={{
+                unstyled: true,
+                classNames: {
+                  toast:
+                    'bg-light-primary dark:bg-dark-secondary dark:text-white/70 text-black-70 rounded-lg p-4 flex flex-row items-center space-x-2',
+                },
+              }}
+            />
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

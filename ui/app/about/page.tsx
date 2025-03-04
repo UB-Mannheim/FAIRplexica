@@ -19,7 +19,7 @@ const AboutPage = () => {
         <div className="flex justify-center gap-12 mb-10 h-24">
           <img
             src="/UB_logo.svg"
-            alt="University Library Mannheim Logo"
+            alt="Mannheim University Library Logo"
           />
           <img
             src="/FDZ_logo.png"
@@ -54,7 +54,7 @@ const AboutPage = () => {
             rel="noopener noreferrer"
             className="text-black dark:text-white lg:text-lg font-medium truncate transition duration-200 hover:text-[#ADB8C8] dark:hover:text-[#ADB8C8] cursor-pointer"
           >
-            University Library Mannheim
+            Mannheim University Library
           </a>{' '}
           and based on{' '}
           <a

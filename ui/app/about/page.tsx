@@ -18,7 +18,7 @@ const AboutPage = () => {
 
         <div className="flex justify-center gap-12 mb-10 h-24">
           <img
-            src="/UB_logo.png"
+            src="/UB_logo.svg"
             alt="University Library Mannheim Logo"
           />
           <img

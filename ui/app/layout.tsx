@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
+import { Montserrat, Quicksand } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import Sidebar from '@/components/Sidebar';
@@ -7,7 +7,7 @@ import { Toaster } from 'sonner';
 import ThemeProvider from '@/components/theme/Provider';
 import AuthProvider from '@/components/auth/AuthProvider'; // Import the client component
 
-const montserrat = Montserrat({
+const font = Quicksand({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
   display: 'swap',
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className="h-full" lang="en" suppressHydrationWarning>
-      <body className={cn('h-full', montserrat.className)}>
+      <body className={cn('h-full', font.className)}>
         <AuthProvider> {/* Use the client component wrapper */}
           <ThemeProvider>
             <Sidebar>{children}</Sidebar>

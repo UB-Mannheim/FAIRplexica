@@ -27,7 +27,7 @@ const MessageSources = ({ sources }: { sources: Document[] }) => {
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
       {sources.slice(0, 3).map((source, i) => (
         <a
-          className="bg-light-100 hover:bg-light-200 dark:bg-dark-100 dark:hover:bg-dark-200 transition duration-200 rounded-lg p-3 flex flex-col space-y-2 font-medium"
+          className="bg-light-50 hover:bg-light-100 dark:bg-dark-100 dark:hover:bg-dark-200 transition duration-200 rounded-lg p-3 flex flex-col space-y-2 font-medium"
           key={i}
           href={source.metadata.url}
           target="_blank"
@@ -64,7 +64,7 @@ const MessageSources = ({ sources }: { sources: Document[] }) => {
       {sources.length > 3 && (
         <button
           onClick={openModal}
-          className="bg-light-100 hover:bg-light-200 dark:bg-dark-100 dark:hover:bg-dark-200 transition duration-200 rounded-lg p-3 flex flex-col space-y-2 font-medium"
+          className="bg-light-50 hover:bg-light-100 dark:bg-dark-100 dark:hover:bg-dark-200 transition duration-200 rounded-lg p-3 flex flex-col space-y-2 font-medium"
         >
           <div className="flex flex-row items-center space-x-1">
             {sources.slice(3, 6).map((source, i) => {
@@ -101,17 +101,17 @@ const MessageSources = ({ sources }: { sources: Document[] }) => {
                 leaveFrom="opacity-100 scale-200"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="w-full max-w-md transform rounded-2xl bg-light-secondary dark:bg-dark-secondary border border-light-200 dark:border-dark-200 p-6 text-left align-middle shadow-xl transition-all">
-                  
-                  {/* Sources */}
-                  
+
+                {/* Sources */}
+
+                <DialogPanel className="w-full max-w-lg transform rounded-2xl bg-light-primary dark:bg-dark-secondary border border-light-100 dark:border-dark-200 p-6 text-left align-middle shadow-xl transition-all">
                   <DialogTitle className="text-lg font-medium leading-6 dark:text-white">
                     Sources
                   </DialogTitle>
-                  <div className="grid grid-cols-2 gap-2 overflow-auto max-h-[300px] mt-2 pr-2">
+                  <div className="grid grid-cols-2 gap-2 overflow-auto max-h-[200px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] mt-2 pr-2">
                     {sources.map((source, i) => (
                       <a
-                        className="bg-light-secondary hover:bg-light-200 dark:bg-dark-secondary dark:hover:bg-dark-200 border border-light-200 dark:border-dark-200 transition duration-200 rounded-lg p-3 flex flex-col space-y-2 font-medium"
+                        className="bg-light-primary hover:bg-light-100 dark:bg-dark-secondary dark:hover:bg-dark-200 border border-light-100 dark:border-dark-200 transition duration-200 rounded-lg p-3 flex flex-col space-y-2 font-medium"
                         key={i}
                         href={source.metadata.url}
                         target="_blank"

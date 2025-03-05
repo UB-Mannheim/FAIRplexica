@@ -78,13 +78,13 @@ const EmptyChatMessageInput = ({
       }}
       className="w-full"
     >
-      <div className="flex flex-col bg-light-secondary dark:bg-dark-secondary px-5 pt-5 pb-2 rounded-lg w-full border border-light-200 dark:border-dark-200">
+      <div className="flex flex-col bg-light-50 dark:bg-dark-secondary px-5 pt-5 pb-2 rounded-lg w-full border border-light-100 dark:border-dark-200 shadow-md">
         <TextareaAutosize
           ref={inputRef}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          minRows={2}
-          className="bg-transparent placeholder:text-black/50 dark:placeholder:text-white/50 text-sm text-black dark:text-white resize-none focus:outline-none w-full max-h-24 lg:max-h-36 xl:max-h-48"
+          minRows={1}
+          className="bg-transparent placeholder:text-black/50 dark:placeholder:text-white/50 text-md text-black dark:text-white resize-none focus:outline-none w-full max-h-24 lg:max-h-36 xl:max-h-48"
           placeholder="Ask a question ..."
         />
 
@@ -118,9 +118,9 @@ const EmptyChatMessageInput = ({
 
             <button
               disabled={message.trim().length === 0}
-              className="bg-[#24A0ED] text-white disabled:text-black/50 dark:disabled:text-white/50 disabled:bg-[#e0e0dc] dark:disabled:bg-[#ececec21] hover:bg-opacity-85 transition duration-100 rounded-full p-2"
+              className="bg-light-200 text-white disabled:text-black/50 dark:disabled:text-white/50 disabled:bg-light-100 dark:disabled:bg-[#ececec21] hover:bg-opacity-85 transition duration-100 rounded-full p-2"
             >
-              <ArrowRight className="bg-background" size={17} />
+              <Search className="bg-background" size={17} />
             </button>
           </div>
         </div>

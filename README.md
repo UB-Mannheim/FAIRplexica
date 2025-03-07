@@ -43,7 +43,7 @@ FAIRplexica is an open-source AI assistant for research data management (RDM). I
 
 7. Duplicate this file and rename it to `.env`. It should look like this:
 
-    ```toml
+    ```
     NEXT_PUBLIC_WS_URL=ws://localhost:3001
     NEXT_PUBLIC_API_URL=http://localhost:3001/api
 
@@ -87,7 +87,7 @@ FAIRplexica is an open-source AI assistant for research data management (RDM). I
 
 2. Duplicate the `.env.example` file and rename it to `.env`. It should look like this:
 
-    ```toml
+    ```
     NEXT_PUBLIC_WS_URL=wss://yourdomain.com
     NEXT_PUBLIC_API_URL=https://yourdomain.com/api
 

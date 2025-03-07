@@ -440,9 +440,9 @@ const Page = () => {
 
             <SettingsSection title="Automatic Search">
               <div className="flex flex-col space-y-4">
-                <div className="flex items-center justify-between p-3 bg-light-secondary dark:bg-dark-secondary rounded-lg hover:bg-light-200 dark:hover:bg-dark-200 transition-colors">
+                <div className="flex items-center justify-between p-3 bg-light-secondary dark:bg-dark-secondary rounded-lg hover:bg-light-50 dark:hover:bg-dark-200 transition-colors">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-light-200 dark:bg-dark-200 rounded-lg">
+                    <div className="p-2 bg-light-100 dark:bg-dark-200 rounded-lg">
                       <ImagesIcon
                         size={18}
                         className="text-black/70 dark:text-white/70"
@@ -482,9 +482,9 @@ const Page = () => {
                   </Switch>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-light-secondary dark:bg-dark-secondary rounded-lg hover:bg-light-200 dark:hover:bg-dark-200 transition-colors">
+                <div className="flex items-center justify-between p-3 bg-light-secondary dark:bg-dark-secondary rounded-lg hover:bg-light-50 dark:hover:bg-dark-200 transition-colors">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-light-200 dark:bg-dark-200 rounded-lg">
+                    <div className="p-2 bg-light-100 dark:bg-dark-200 rounded-lg">
                       <VideoIcon
                         size={18}
                         className="text-black/70 dark:text-white/70"

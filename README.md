@@ -3,7 +3,8 @@
 FAIRplexica is an open-source AI assistant for research data management (RDM). It is based on [Perplexica](https://github.com/ItzCrazyKns/Perplexica), uses the metasearch engine [SearXNG](https://github.com/searxng/searxng) to retrieve relevant RDM resources and local LLMs (via [Ollama](https://github.com/ollama/ollama)) to answer user questions. API providers like OpenAI, Groq, Anthropic, Google as well as custom API endpoints are available as well.
 
 <p align="center">
-  <img src=".assets/fairplexica.png" width="80%">
+    <video src=".assets/fairplexica.mov" controls="controls" style="max-width: 700px;">
+    </video>
 </p>
 
 ## Table of Contents

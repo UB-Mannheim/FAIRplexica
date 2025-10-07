@@ -1,10 +1,12 @@
 services:
   searxng:
     image: docker.io/searxng/searxng:latest
+    env_file:
+      - searxng.env
     volumes:
       - ./searxng:/etc/searxng:rw
     ports:
-      - 4000:8080
+      - 4001:8080
     networks:
       - perplexica-network
     restart: unless-stopped

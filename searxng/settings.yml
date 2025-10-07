@@ -10,8 +10,53 @@ search:
     - json
 
 server:
-  secret_key: 'a2fb23f1b02e6ee83875b09826990de0f6bd908b6638e8c10277d415f6ab852b' # Is overwritten by ${SEARXNG_SECRET}
+  secret_key: 'a2fb23f1b02e6ee83875b09826990de0f6bd908b6638e8c10277d415f6ab852b'
+
+outgoing:
+  request_timeout: 6.0
+  pool_maxsize: 4
+  useragent_suffix: 'FAIRplexica'
 
 engines:
-  - name: wolframalpha
+  # - name: brave
+  #   engine: brave
+  #   shortcut: br
+  #   categories:
+  #     - general
+  #   # api_key: ${BRAVE_API_KEY}
+  #   timeout: 4.0
+  #   disabled: false
+  # - name: duckduckgo
+  #   disabled: true
+  # # - name: google
+  # #   disabled: true
+  # - name: qwant
+  #   disabled: true
+  - name: google
+    engine: google
+    shortcut: go
+    categories:
+      - general
+    api_key: ${GOOGLE_SEARCH_API_KEY}
+    cx: ${GOOGLE_CSE_ID}
+    timeout: 4.0
     disabled: false
+  - name: mojeek
+    engine: mojeek
+    shortcut: mj
+    categories:
+      - general
+    timeout: 6.0
+    disabled: false
+  - name: wikipedia
+    engine: wikipedia
+    timeout: 3.0
+    disabled: false
+  - name: wikidata
+    engine: wikidata
+    timeout: 3.0
+    disabled: false
+  # - name: wolframalpha
+  #   engine: wolframalpha
+  #   timeout: 6.0
+  #   disabled: false

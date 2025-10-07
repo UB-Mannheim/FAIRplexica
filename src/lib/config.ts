@@ -15,6 +15,8 @@ interface Config {
   GENERAL: {
     SIMILARITY_MEASURE: string;
     KEEP_ALIVE: string;
+    GLOBAL_CONTEXT: string;
+    SYSTEM_PROMPT?: string;
   };
   MODELS: {
     OPENAI: {
@@ -55,6 +57,11 @@ interface Config {
   API_ENDPOINTS: {
     SEARXNG: string;
   };
+  ADMIN?: {
+    USERNAME?: string;
+    PASSWORD?: string;
+    JWT_SECRET?: string;
+  };
 }
 
 type RecursivePartial<T> = {
@@ -77,6 +84,34 @@ export const getSimilarityMeasure = () =>
   loadConfig().GENERAL.SIMILARITY_MEASURE;
 
 export const getKeepAlive = () => loadConfig().GENERAL.KEEP_ALIVE;
+
+export const getGlobalContext = () => loadConfig().GENERAL.GLOBAL_CONTEXT;
+
+export const getSystemPrompt = () => loadConfig().GENERAL.SYSTEM_PROMPT ?? '';
+
+export const getAdminUsername = () => {
+  const fromEnv = process.env.ADMIN_USERNAME;
+  if (fromEnv && fromEnv.trim().length > 0) {
+    return fromEnv;
+  }
+  return loadConfig().ADMIN?.USERNAME ?? '';
+};
+
+export const getAdminPassword = () => {
+  const fromEnv = process.env.ADMIN_PASSWORD;
+  if (fromEnv && fromEnv.trim().length > 0) {
+    return fromEnv;
+  }
+  return loadConfig().ADMIN?.PASSWORD ?? '';
+};
+
+export const getAdminJwtSecret = () => {
+  const fromEnv = process.env.ADMIN_JWT_SECRET;
+  if (fromEnv && fromEnv.trim().length > 0) {
+    return fromEnv;
+  }
+  return loadConfig().ADMIN?.JWT_SECRET ?? '';
+};
 
 export const getOpenaiApiKey = () => loadConfig().MODELS.OPENAI.API_KEY;
 

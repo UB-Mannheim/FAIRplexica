@@ -234,7 +234,7 @@ const MessageBox = ({
                       <div className="flex flex-col space-y-3">
                         {message.suggestions.map((suggestion, i) => (
                           <div
-                            className="flex flex-col space-y-3 text-sm"
+                            className="flex flex-col space-y-3 text-md"
                             key={i}
                           >
                             <div className="h-px w-full bg-light-secondary dark:bg-dark-secondary" />
@@ -244,12 +244,12 @@ const MessageBox = ({
                               }}
                               className="cursor-pointer flex flex-row justify-between font-medium space-x-2 items-center"
                             >
-                              <p className="transition duration-200 hover:text-[#24A0ED]">
+                              <p className="transition duration-200 hover:text-light-accent">
                                 {suggestion}
                               </p>
                               <Plus
                                 size={20}
-                                className="text-[#24A0ED] flex-shrink-0"
+                                className="text-light-accent flex-shrink-0"
                               />
                             </div>
                           </div>

@@ -2,10 +2,10 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Perplexica - Chat with the internet',
-    short_name: 'Perplexica',
+    name: 'FAIRplexica',
+    short_name: 'FAIRplexica',
     description:
-      'Perplexica is an AI powered chatbot that is connected to the internet.',
+      'Search for Research Data Management (RDM) Topics',
     start_url: '/',
     display: 'standalone',
     background_color: '#0a0a0a',

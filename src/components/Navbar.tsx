@@ -2,7 +2,6 @@ import { Clock, Edit, Share, Trash, FileText, FileDown } from 'lucide-react';
 import { Message } from './ChatWindow';
 import { useEffect, useState, Fragment } from 'react';
 import { formatTimeDifference } from '@/lib/utils';
-import DeleteChat from './DeleteChat';
 import {
   Popover,
   PopoverButton,
@@ -189,21 +188,20 @@ const Navbar = () => {
                   className="flex items-center gap-2 px-4 py-2 text-left hover:bg-light-secondary dark:hover:bg-dark-secondary transition-colors text-black dark:text-white rounded-lg font-medium"
                   onClick={() => exportAsMarkdown(messages, title || '')}
                 >
-                  <FileText size={17} className="text-[#24A0ED]" />
+                  <FileText size={17} className="text-light-accent" />
                   Export as Markdown
                 </button>
                 <button
                   className="flex items-center gap-2 px-4 py-2 text-left hover:bg-light-secondary dark:hover:bg-dark-secondary transition-colors text-black dark:text-white rounded-lg font-medium"
                   onClick={() => exportAsPDF(messages, title || '')}
                 >
-                  <FileDown size={17} className="text-[#24A0ED]" />
+                  <FileDown size={17} className="text-light-accent" />
                   Export as PDF
                 </button>
               </div>
             </PopoverPanel>
           </Transition>
         </Popover>
-        <DeleteChat redirect chatId={chatId!} chats={[]} setChats={() => {}} />
       </div>
     </div>
   );

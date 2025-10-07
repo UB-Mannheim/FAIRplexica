@@ -106,7 +106,7 @@ const Focus = () => {
                   className={cn(
                     'flex flex-row items-center space-x-1',
                     focusMode === mode.key
-                      ? 'text-[#24A0ED]'
+                      ? 'text-light-accent'
                       : 'text-black dark:text-white',
                   )}
                 >

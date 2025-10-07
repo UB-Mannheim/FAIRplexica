@@ -12,6 +12,10 @@ COPY public ./public
 RUN mkdir -p /home/perplexica/data
 RUN yarn build
 
+# Disable yarn telemetry
+ENV YARN_ENABLE_TELEMETRY=0
+RUN yarn config set enableTelemetry false
+
 RUN yarn add --dev @vercel/ncc
 RUN yarn ncc build ./src/lib/db/migrate.ts -o migrator
 

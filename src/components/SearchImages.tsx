@@ -77,7 +77,7 @@ const SearchImages = ({
             <ImagesIcon size={17} />
             <p>Search images</p>
           </div>
-          <PlusIcon className="text-[#24A0ED]" size={17} />
+          <PlusIcon className="text-light-accent" size={17} />
         </button>
       )}
       {loading && (

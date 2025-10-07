@@ -4,7 +4,9 @@ import {
   getCustomOpenaiApiUrl,
   getCustomOpenaiModelName,
   getGeminiApiKey,
+  getGlobalContext,
   getGroqApiKey,
+  getSystemPrompt,
   getOllamaApiEndpoint,
   getOpenaiApiKey,
   getDeepseekApiKey,
@@ -19,9 +21,16 @@ import {
   getAvailableChatModelProviders,
   getAvailableEmbeddingModelProviders,
 } from '@/lib/providers';
+import { authenticateAdminRequest } from '@/lib/auth';
 
 export const GET = async (req: Request) => {
   try {
+    const admin = authenticateAdminRequest(req);
+
+    if (!admin) {
+      return Response.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+
     const config: Record<string, any> = {};
 
     const [chatModelProviders, embeddingModelProviders] = await Promise.all([
@@ -68,6 +77,8 @@ export const GET = async (req: Request) => {
     config['customOpenaiApiUrl'] = getCustomOpenaiApiUrl();
     config['customOpenaiApiKey'] = getCustomOpenaiApiKey();
     config['customOpenaiModelName'] = getCustomOpenaiModelName();
+    config['globalContext'] = getGlobalContext();
+    config['systemPrompt'] = getSystemPrompt();
 
     return Response.json({ ...config }, { status: 200 });
   } catch (err) {
@@ -81,9 +92,19 @@ export const GET = async (req: Request) => {
 
 export const POST = async (req: Request) => {
   try {
+    const admin = authenticateAdminRequest(req);
+
+    if (!admin) {
+      return Response.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+
     const config = await req.json();
 
     const updatedConfig = {
+      GENERAL: {
+        GLOBAL_CONTEXT: config.globalContext ?? '',
+        SYSTEM_PROMPT: config.systemPrompt ?? '',
+      },
       MODELS: {
         OPENAI: {
           API_KEY: config.openaiApiKey,

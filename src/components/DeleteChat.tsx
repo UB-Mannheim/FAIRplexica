@@ -10,7 +10,13 @@ import {
 } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { toast } from 'sonner';
-import { Chat } from '@/app/library/page';
+
+type Chat = {
+  id: string;
+  title: string;
+  createdAt: string;
+  focusMode: string;
+};
 
 const DeleteChat = ({
   chatId,

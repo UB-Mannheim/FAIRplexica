@@ -11,6 +11,7 @@ import {
   getCustomOpenaiApiKey,
   getCustomOpenaiApiUrl,
   getCustomOpenaiModelName,
+  getSystemPrompt,
 } from '@/lib/config';
 import { searchHandlers } from '@/lib/search';
 
@@ -118,6 +119,14 @@ export const POST = async (req: Request) => {
       return Response.json({ message: 'Invalid focus mode' }, { status: 400 });
     }
 
+    const combinedSystemInstructions = [
+      getSystemPrompt(),
+      body.systemInstructions || '',
+    ]
+      .map((value) => value?.trim())
+      .filter((value) => value)
+      .join('\n\n');
+
     const emitter = await searchHandler.searchAndAnswer(
       body.query,
       history,
@@ -125,7 +134,7 @@ export const POST = async (req: Request) => {
       embeddings,
       body.optimizationMode,
       [],
-      body.systemInstructions || '',
+      combinedSystemInstructions,
     );
 
     if (!body.stream) {

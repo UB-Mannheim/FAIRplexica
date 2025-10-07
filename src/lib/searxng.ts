@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { getSearxngApiEndpoint } from './config';
+import { getGlobalContext, getSearxngApiEndpoint } from './config';
 
 interface SearxngSearchOptions {
   categories?: string[];
   engines?: string[];
   language?: string;
   pageno?: number;
+  limit?: number;
 }
 
 interface SearxngSearchResult {
@@ -23,10 +24,16 @@ export const searchSearxng = async (
   query: string,
   opts?: SearxngSearchOptions,
 ) => {
-  const searxngURL = getSearxngApiEndpoint();
+  const searxngURL = getSearxngApiEndpoint().replace(/\/+$/, '');
+  const globalContext = getGlobalContext()?.trim();
 
-  const url = new URL(`${searxngURL}/search?format=json`);
-  url.searchParams.append('q', query);
+  const queryWithContext = globalContext
+    ? `${query} ${globalContext}`.trim()
+    : query;
+
+  const url = new URL(`${searxngURL}/search`);
+  url.searchParams.append('format', 'json');
+  url.searchParams.append('q', queryWithContext);
 
   if (opts) {
     Object.keys(opts).forEach((key) => {

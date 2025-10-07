@@ -36,7 +36,7 @@ const Chat = () => {
     };
 
     if (messages.length === 1) {
-      document.title = `${messages[0].content.substring(0, 30)} - Perplexica`;
+      document.title = `${messages[0].content.substring(0, 30)} - FAIRplexica`;
     }
 
     if (messages[messages.length - 1]?.role == 'user') {

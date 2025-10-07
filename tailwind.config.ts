@@ -5,12 +5,14 @@ const themeDark = (colors: DefaultColors) => ({
   50: '#0a0a0a',
   100: '#111111',
   200: '#1c1c1c',
+  300: '#282828',
 });
 
 const themeLight = (colors: DefaultColors) => ({
-  50: '#fcfcf9',
-  100: '#f3f3ee',
-  200: '#e8e8e3',
+  50: '#ffffff',
+  100: '#acb8ca',
+  200: '#d5dde8',
+  accent: '#01315d',
 });
 
 const config: Config = {

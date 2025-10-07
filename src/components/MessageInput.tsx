@@ -2,16 +2,11 @@ import { cn } from '@/lib/utils';
 import { ArrowUp } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-import Attach from './MessageInputActions/Attach';
-import CopilotToggle from './MessageInputActions/Copilot';
-import { File } from './ChatWindow';
-import AttachSmall from './MessageInputActions/AttachSmall';
 import { useChat } from '@/lib/hooks/useChat';
 
 const MessageInput = () => {
   const { loading, sendMessage } = useChat();
 
-  const [copilotEnabled, setCopilotEnabled] = useState(false);
   const [message, setMessage] = useState('');
   const [textareaRows, setTextareaRows] = useState(1);
   const [mode, setMode] = useState<'multi' | 'single'>('single');
@@ -64,11 +59,10 @@ const MessageInput = () => {
         }
       }}
       className={cn(
-        'bg-light-secondary dark:bg-dark-secondary p-4 flex items-center overflow-hidden border border-light-200 dark:border-dark-200',
+        'bg-white dark:bg-dark-secondary p-4 flex items-center overflow-hidden border border-light-100 dark:border-dark-200 shadow-xl focus-within:border-light-accent dark:focus-within:border-dark-300',
         mode === 'multi' ? 'flex-col rounded-lg' : 'flex-row rounded-full',
       )}
     >
-      {mode === 'single' && <AttachSmall />}
       <TextareaAutosize
         ref={inputRef}
         value={message}
@@ -76,40 +70,22 @@ const MessageInput = () => {
         onHeightChange={(height, props) => {
           setTextareaRows(Math.ceil(height / props.rowHeight));
         }}
-        className="transition bg-transparent dark:placeholder:text-white/50 placeholder:text-sm text-sm dark:text-white resize-none focus:outline-none w-full px-2 max-h-24 lg:max-h-36 xl:max-h-48 flex-grow flex-shrink"
-        placeholder="Ask a follow-up"
+        className="transition bg-transparent placeholder:text-black/50 dark:placeholder:text-white/50 text-md dark:text-white resize-none focus:outline-none w-full px-2 max-h-24 lg:max-h-36 xl:max-h-48 flex-grow flex-shrink"
+        placeholder="Ask a follow-up ..."
       />
-      {mode === 'single' && (
-        <div className="flex flex-row items-center space-x-4">
-          <CopilotToggle
-            copilotEnabled={copilotEnabled}
-            setCopilotEnabled={setCopilotEnabled}
-          />
-          <button
-            disabled={message.trim().length === 0 || loading}
-            className="bg-[#24A0ED] text-white disabled:text-black/50 dark:disabled:text-white/50 hover:bg-opacity-85 transition duration-100 disabled:bg-[#e0e0dc79] dark:disabled:bg-[#ececec21] rounded-full p-2"
-          >
-            <ArrowUp className="bg-background" size={17} />
-          </button>
-        </div>
-      )}
-      {mode === 'multi' && (
-        <div className="flex flex-row items-center justify-between w-full pt-2">
-          <AttachSmall />
-          <div className="flex flex-row items-center space-x-4">
-            <CopilotToggle
-              copilotEnabled={copilotEnabled}
-              setCopilotEnabled={setCopilotEnabled}
-            />
-            <button
-              disabled={message.trim().length === 0 || loading}
-              className="bg-[#24A0ED] text-white text-black/50 dark:disabled:text-white/50 hover:bg-opacity-85 transition duration-100 disabled:bg-[#e0e0dc79] dark:disabled:bg-[#ececec21] rounded-full p-2"
-            >
-              <ArrowUp className="bg-background" size={17} />
-            </button>
-          </div>
-        </div>
-      )}
+      <div
+        className={cn(
+          'flex items-center justify-end space-x-4 flex-shrink-0',
+          mode === 'multi' && 'w-full pt-2',
+        )}
+      >
+        <button
+          disabled={message.trim().length === 0 || loading}
+          className="bg-light-accent text-white disabled:text-black/40 dark:disabled:text-white/50 hover:bg-light-accent/90 transition duration-100 disabled:bg-light-secondary dark:disabled:bg-dark-200 rounded-full p-3"
+        >
+          <ArrowUp className="bg-background" size={17} />
+        </button>
+      </div>
     </form>
   );
 };

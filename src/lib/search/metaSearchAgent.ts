@@ -208,6 +208,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
           const res = await searchSearxng(question, {
             language: 'en',
             engines: this.config.activeEngines,
+            limit: 15,
           });
 
           const documents = res.results.map(
@@ -329,7 +330,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
       .flat();
 
     if (query.toLocaleLowerCase() === 'summarize') {
-      return docs.slice(0, 15);
+      return docs.slice(0, 10);
     }
 
     const docsWithContent = docs.filter(
@@ -366,7 +367,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
             (sim) => sim.similarity > (this.config.rerankThreshold ?? 0.3),
           )
           .sort((a, b) => b.similarity - a.similarity)
-          .slice(0, 15)
+          .slice(0, 10)
           .map((sim) => fileDocs[sim.index]);
 
         sortedDocs =
@@ -374,10 +375,10 @@ class MetaSearchAgent implements MetaSearchAgentType {
 
         return [
           ...sortedDocs,
-          ...docsWithContent.slice(0, 15 - sortedDocs.length),
+          ...docsWithContent.slice(0, 10 - sortedDocs.length),
         ];
       } else {
-        return docsWithContent.slice(0, 15);
+        return docsWithContent.slice(0, 10);
       }
     } else if (optimizationMode === 'balanced') {
       const [docEmbeddings, queryEmbedding] = await Promise.all([
@@ -413,7 +414,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
       const sortedDocs = similarity
         .filter((sim) => sim.similarity > (this.config.rerankThreshold ?? 0.3))
         .sort((a, b) => b.similarity - a.similarity)
-        .slice(0, 15)
+        .slice(0, 10)
         .map((sim) => docsWithContent[sim.index]);
 
       return sortedDocs;

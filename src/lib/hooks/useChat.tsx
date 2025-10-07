@@ -577,7 +577,6 @@ export const ChatProvider = ({
           name: embeddingModelProvider.name,
           provider: embeddingModelProvider.provider,
         },
-        systemInstructions: localStorage.getItem('systemInstructions'),
       }),
     });
 

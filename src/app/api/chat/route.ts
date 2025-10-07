@@ -15,6 +15,7 @@ import {
   getCustomOpenaiApiKey,
   getCustomOpenaiApiUrl,
   getCustomOpenaiModelName,
+  getSystemPrompt,
 } from '@/lib/config';
 import { searchHandlers } from '@/lib/search';
 
@@ -45,7 +46,7 @@ type Body = {
   files: Array<string>;
   chatModel: ChatModel;
   embeddingModel: EmbeddingModel;
-  systemInstructions: string;
+  systemInstructions?: string;
 };
 
 const handleEmitterEvents = async (
@@ -276,6 +277,15 @@ export const POST = async (req: Request) => {
       );
     }
 
+    const configuredSystemPrompt = getSystemPrompt();
+    const combinedSystemInstructions = [
+      configuredSystemPrompt,
+      body.systemInstructions ?? '',
+    ]
+      .map((value) => value?.trim())
+      .filter((value) => value)
+      .join('\n\n');
+
     const stream = await handler.searchAndAnswer(
       message.content,
       history,
@@ -283,7 +293,7 @@ export const POST = async (req: Request) => {
       embedding,
       body.optimizationMode,
       body.files,
-      body.systemInstructions,
+      combinedSystemInstructions,
     );
 
     const responseStream = new TransformStream();

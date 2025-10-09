@@ -18,27 +18,22 @@ outgoing:
   useragent_suffix: 'FAIRplexica'
 
 engines:
-  # - name: brave
-  #   engine: brave
-  #   shortcut: br
-  #   categories:
-  #     - general
-  #   # api_key: ${BRAVE_API_KEY}
-  #   timeout: 4.0
-  #   disabled: false
-  # - name: duckduckgo
-  #   disabled: true
-  # # - name: google
-  # #   disabled: true
-  # - name: qwant
-  #   disabled: true
+  - name: brave
+    engine: brave
+    shortcut: br
+    categories:
+      - general
+    timeout: 4.0
+    disabled: false
+  - name: duckduckgo
+    disabled: false
+  - name: qwant
+    disabled: true
   - name: google
     engine: google
     shortcut: go
     categories:
       - general
-    api_key: ${GOOGLE_SEARCH_API_KEY}
-    cx: ${GOOGLE_CSE_ID}
     timeout: 4.0
     disabled: false
   - name: mojeek

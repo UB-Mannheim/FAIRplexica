@@ -1,34 +1,34 @@
 services:
   searxng:
-    image: docker.io/searxng/searxng:latest
+    image: docker.io/searxng/searxng:2026.6.24-e3126b89e
     volumes:
       - ./searxng:/etc/searxng:rw
     ports:
       - 4001:8080
     networks:
-      - perplexica-network
+      - fairplexica-network
     restart: unless-stopped
 
   app:
-    image: itzcrazykns1337/perplexica:main
+    image: ghcr.io/ub-mannheim/fairplexica:latest
     build:
       context: .
       dockerfile: app.dockerfile
     environment:
       - SEARXNG_API_URL=http://searxng:8080
-      - DATA_DIR=/home/perplexica
+      - DATA_DIR=/home/fairplexica
     ports:
       - 3000:3000
     networks:
-      - perplexica-network
+      - fairplexica-network
     volumes:
-      - backend-dbstore:/home/perplexica/data
-      - uploads:/home/perplexica/uploads
-      - ./config.toml:/home/perplexica/config.toml
+      - backend-dbstore:/home/fairplexica/data
+      - uploads:/home/fairplexica/uploads
+      - ./config.toml:/home/fairplexica/config.toml
     restart: unless-stopped
 
 networks:
-  perplexica-network:
+  fairplexica-network:
 
 volumes:
   backend-dbstore:

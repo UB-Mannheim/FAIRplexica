@@ -1,4 +1,8 @@
-use_default_settings: true
+use_default_settings:
+  engines:
+    remove:
+      - ahmia
+      - torch
 
 general:
   instance_name: 'searxng'
@@ -11,6 +15,7 @@ search:
 
 server:
   secret_key: 'a2fb23f1b02e6ee83875b09826990de0f6bd908b6638e8c10277d415f6ab852b'
+  limiter: false
 
 outgoing:
   request_timeout: 6.0
